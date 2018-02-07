@@ -13,6 +13,8 @@ import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 import dk.sdu.mmmi.cbse.managers.GameInputProcessor;
 import dk.sdu.mmmi.cbse.playersystem.PlayerPlugin;
 import dk.sdu.mmmi.cbse.playersystem.PlayerControlSystem;
+import dk.sdu.mmmi.cbse.enemysystem.EnemyPlugin;
+import dk.sdu.mmmi.cbse.enemysystem.EnemyControlSystem;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,14 +44,29 @@ public class Game implements ApplicationListener {
                 new GameInputProcessor(gameData)
         );
         
-        IGamePluginService playerPlugin = new PlayerPlugin();
-        IEntityProcessingService playerProcess = new PlayerControlSystem();
-        entityPlugins.add(playerPlugin);
-        entityProcessors.add(playerProcess);
+        loadPlugins();
+        loadProcesses();
+
         // Lookup all Game Plugins using ServiceLoader
         for (IGamePluginService iGamePlugin : entityPlugins) {
             iGamePlugin.start(gameData, world);
         }
+    }
+    
+    public void loadPlugins(){
+        IGamePluginService enemyPlugin = new EnemyPlugin();
+        IGamePluginService playerPlugin = new PlayerPlugin();
+        
+        entityPlugins.add(playerPlugin);
+        entityPlugins.add(enemyPlugin);
+    }
+    
+    public void loadProcesses(){
+        IEntityProcessingService playerProcess = new PlayerControlSystem();
+        IEntityProcessingService enemyProcess = new EnemyControlSystem();
+
+        entityProcessors.add(playerProcess);
+        entityProcessors.add(enemyProcess);
     }
 
     @Override
