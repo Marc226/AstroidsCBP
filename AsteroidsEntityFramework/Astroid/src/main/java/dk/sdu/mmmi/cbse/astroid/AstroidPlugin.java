@@ -7,6 +7,7 @@ import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
+import dk.sdu.mmmi.cbse.playersystem.Player;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -34,7 +35,7 @@ public class AstroidPlugin implements IGamePluginService {
         active = true;
         executor.submit(()->{
             while(active){
-                astroid = createAstroid(gameData);
+                astroid = createAstroid(gameData, world);
                 astroidList.add(astroid);
                 world.addEntity(astroid);
                 try {
@@ -47,7 +48,7 @@ public class AstroidPlugin implements IGamePluginService {
         
     }
 
-    private Entity createAstroid(GameData gameData) {
+    private Entity createAstroid(GameData gameData, World world) {
         increaseDifficulty(gameData);
         float deacceleration = 10;
         float acceleration = 100;
@@ -55,7 +56,7 @@ public class AstroidPlugin implements IGamePluginService {
         float rotationSpeed = 10;
         float x = random.nextInt(gameData.getDisplayHeight());
         float y = random.nextInt(gameData.getDisplayWidth());
-        float radians = 3.1415f / 2;
+        float radians = setAstroidDirection(world, x, y);
         
         Entity astroid = new Astroid();
         astroid.add(new MovingPart(deacceleration, acceleration, maxSpeed, rotationSpeed));
@@ -80,6 +81,16 @@ public class AstroidPlugin implements IGamePluginService {
             MeteorNextIncrease = random.nextInt(15);
         }
         MeteorIncreaseDifficulty++;
+    }
+    
+    public float setAstroidDirection(World world, float x, float y){
+        float radians = 0;
+        for(Entity entity : world.getEntities(Player.class)){
+                PositionPart Player = entity.getPart(PositionPart.class);
+                radians = (float)Math.atan2(x - Player.getX(), y - Player.getY());
+                System.out.println(radians*180/Math.PI);
+            }
+        return radians;
     }
 
 }

@@ -27,6 +27,7 @@ public class AstroidControlSystem implements IEntityProcessingService {
             movingPart.setUp(true);
             
             
+            
             movingPart.process(gameData, astroid);
             positionPart.process(gameData, astroid);
 
@@ -48,28 +49,22 @@ public class AstroidControlSystem implements IEntityProcessingService {
         entity.addShapeXpoint((float) (x + Math.cos(radians - 2) * 4));
         entity.addShapeYpoint((float) (y + Math.sin(radians - 2) * 4));
 
-        entity.addShapeXpoint((float) (x + Math.cos(radians - 4 * 3.1415f / 5) * 8));
-        entity.addShapeYpoint((float) (y + Math.sin(radians - 4 * 3.1145f / 5) * 8));
+        entity.addShapeXpoint((float) (x + Math.cos(radians - 5) * 5));
+        entity.addShapeYpoint((float) (y + Math.sin(radians - 5) * 5));
         
-        entity.addShapeXpoint((float) (x + Math.cos(radians + 2) * 3));
-        entity.addShapeYpoint((float) (y + Math.sin(radians + 2) * 3));
+        entity.addShapeXpoint((float) (x + Math.cos(radians - 8) * 2));
+        entity.addShapeYpoint((float) (y + Math.sin(radians - 8) * 2));
+        
+        entity.addShapeXpoint((float) (x + Math.cos(radians - 2) * 4));
+        entity.addShapeYpoint((float) (y + Math.sin(radians - 2) * 4));
 
-        entity.addShapeXpoint((float) (x + Math.cos(radians + 3.1415f) * 5));
-        entity.addShapeYpoint((float) (y + Math.sin(radians + 3.1415f) * 5));
-        
-        entity.addShapeXpoint((float) (x + Math.cos(radians + 5) * 6));
-        entity.addShapeYpoint((float) (y + Math.sin(radians + 5) * 6));
 
-        entity.addShapeXpoint((float) (x + Math.cos(radians + 4 * 3.1415f / 5) * 8));
-        entity.addShapeYpoint((float) (y + Math.sin(radians + 4 * 3.1415f / 5) * 8));
         
-        entity.addShapeXpoint((float) (x + Math.cos(radians - 5) * 6));
-        entity.addShapeYpoint((float) (y + Math.sin(radians - 5) * 6));
 
         entity.setColor(color);
     }
     
-    public void SetEnemyDirection(MovingPart part){
+    public void SetAstroidDirection(MovingPart part){
         Random random = new Random();
         int Direction = random.nextInt(2);
         

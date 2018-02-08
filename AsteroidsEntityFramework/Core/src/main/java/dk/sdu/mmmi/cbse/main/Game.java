@@ -5,6 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import dk.sdu.mmmi.cbse.Shaper.Draw;
+import dk.sdu.mmmi.cbse.Shaper.DrawPoints;
 import dk.sdu.mmmi.cbse.astroid.AstroidControlSystem;
 import dk.sdu.mmmi.cbse.astroid.AstroidPlugin;
 import dk.sdu.mmmi.cbse.common.data.Entity;
@@ -23,9 +25,9 @@ import java.util.List;
 public class Game implements ApplicationListener {
 
     private static OrthographicCamera cam;
-    private ShapeRenderer sr;
 
     private final GameData gameData = new GameData();
+    private ShapeRenderer sr;
     private List<IEntityProcessingService> entityProcessors = new ArrayList<>();
     private List<IGamePluginService> entityPlugins = new ArrayList<>();
     private World world = new World();
@@ -41,7 +43,7 @@ public class Game implements ApplicationListener {
         cam.update();
 
         sr = new ShapeRenderer();
-
+        
         Gdx.input.setInputProcessor(
                 new GameInputProcessor(gameData)
         );
@@ -100,7 +102,6 @@ public class Game implements ApplicationListener {
 
     private void draw() {
         for (Entity entity : world.getEntities()) {
-
             int[] color = entity.getColor();
             sr.setColor(color[0], color[1], color[2], color[3]);
 
@@ -119,6 +120,8 @@ public class Game implements ApplicationListener {
             sr.end();
         }
     }
+    
+
 
     @Override
     public void resize(int width, int height) {
