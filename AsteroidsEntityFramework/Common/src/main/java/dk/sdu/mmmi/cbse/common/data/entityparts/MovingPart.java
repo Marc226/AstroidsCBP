@@ -40,6 +40,7 @@ public class MovingPart
     public void setAcceleration(float acceleration) {
         this.acceleration = acceleration;
     }
+    
 
     public void setMaxSpeed(float maxSpeed) {
         this.maxSpeed = maxSpeed;

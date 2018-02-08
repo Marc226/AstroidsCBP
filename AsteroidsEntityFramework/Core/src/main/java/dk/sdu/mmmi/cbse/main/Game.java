@@ -5,6 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import dk.sdu.mmmi.cbse.astroid.AstroidControlSystem;
+import dk.sdu.mmmi.cbse.astroid.AstroidPlugin;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
@@ -56,17 +58,21 @@ public class Game implements ApplicationListener {
     public void loadPlugins(){
         IGamePluginService enemyPlugin = new EnemyPlugin();
         IGamePluginService playerPlugin = new PlayerPlugin();
+        IGamePluginService astroidPlugin = new AstroidPlugin();
         
         entityPlugins.add(playerPlugin);
         entityPlugins.add(enemyPlugin);
+        entityPlugins.add(astroidPlugin);
     }
     
     public void loadProcesses(){
         IEntityProcessingService playerProcess = new PlayerControlSystem();
         IEntityProcessingService enemyProcess = new EnemyControlSystem();
+        IEntityProcessingService astroidProcess = new AstroidControlSystem();
 
         entityProcessors.add(playerProcess);
         entityProcessors.add(enemyProcess);
+        entityProcessors.add(astroidProcess);
     }
 
     @Override
@@ -88,27 +94,26 @@ public class Game implements ApplicationListener {
     private void update() {
         // Update
         for (IEntityProcessingService entityProcessorService : entityProcessors) {
-            for (Entity e : world.getEntities()) {
-                entityProcessorService.process(gameData, world);
-            }
+           entityProcessorService.process(gameData, world);
         }
     }
 
     private void draw() {
         for (Entity entity : world.getEntities()) {
 
-            sr.setColor(1, 1, 1, 1);
+            int[] color = entity.getColor();
+            sr.setColor(color[0], color[1], color[2], color[3]);
 
             sr.begin(ShapeRenderer.ShapeType.Line);
 
-            float[] shapex = entity.getShapeX();
-            float[] shapey = entity.getShapeY();
+            List<Float> shapex = entity.getShapeX();
+            List<Float> shapey = entity.getShapeY();
 
-            for (int i = 0, j = shapex.length - 1;
-                    i < shapex.length;
+            for (int i = 0, j = shapex.size() - 1;
+                    i < shapex.size();
                     j = i++) {
 
-                sr.line(shapex[i], shapey[i], shapex[j], shapey[j]);
+                sr.line(shapex.get(i), shapey.get(i), shapex.get(j), shapey.get(j));
             }
 
             sr.end();

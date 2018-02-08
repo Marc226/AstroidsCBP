@@ -2,6 +2,7 @@ package dk.sdu.mmmi.cbse.common.data;
 
 import dk.sdu.mmmi.cbse.common.data.entityparts.EntityPart;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -9,9 +10,10 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Entity implements Serializable {
     private final UUID ID = UUID.randomUUID();
 
-    private float[] shapeX = new float[4];
-    private float[] shapeY = new float[4];
+    private ArrayList<Float> shapeX = new ArrayList<>();
+    private ArrayList<Float> shapeY = new ArrayList<>();
     private float radius;
+    private int[] color = new int[4];
     private Map<Class, EntityPart> parts;
     
     public Entity() {
@@ -30,6 +32,14 @@ public class Entity implements Serializable {
         return (E) parts.get(partClass);
     }
     
+    public void setColor(int[] color){
+        this.color = color;
+    }
+    
+    public int[] getColor(){
+        return this.color;
+    }
+    
     public void setRadius(float r){
         this.radius = r;
     }
@@ -42,19 +52,24 @@ public class Entity implements Serializable {
         return ID.toString();
     }
 
-    public float[] getShapeX() {
+    public ArrayList<Float> getShapeX() {
         return shapeX;
     }
 
-    public void setShapeX(float[] shapeX) {
-        this.shapeX = shapeX;
+    public void addShapeXpoint(float x) {
+        shapeX.add(x);
     }
 
-    public float[] getShapeY() {
+    public ArrayList<Float> getShapeY() {
         return shapeY;
     }
 
-    public void setShapeY(float[] shapeY) {
-        this.shapeY = shapeY;
+    public void addShapeYpoint(float y) {
+        shapeY.add(y);
+    }
+    
+    public void clearShape(){
+        shapeX.clear();
+        shapeY.clear();
     }
 }

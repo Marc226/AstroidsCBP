@@ -1,4 +1,4 @@
-package dk.sdu.mmmi.cbse.enemysystem;
+package dk.sdu.mmmi.cbse.astroid;
 
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
@@ -15,23 +15,22 @@ import java.util.Random;
  *
  * @author jcs
  */
-public class EnemyControlSystem implements IEntityProcessingService {
+public class AstroidControlSystem implements IEntityProcessingService {
 
     @Override
     public void process(GameData gameData, World world) {
 
-        for (Entity enemy : world.getEntities(Enemy.class)) {
-            PositionPart positionPart = enemy.getPart(PositionPart.class);
-            MovingPart movingPart = enemy.getPart(MovingPart.class);
+        for (Entity astroid : world.getEntities(Astroid.class)) {
+            PositionPart positionPart = astroid.getPart(PositionPart.class);
+            MovingPart movingPart = astroid.getPart(MovingPart.class);
 
-            SetEnemyDirection(movingPart);
             movingPart.setUp(true);
             
             
-            movingPart.process(gameData, enemy);
-            positionPart.process(gameData, enemy);
+            movingPart.process(gameData, astroid);
+            positionPart.process(gameData, astroid);
 
-            updateShape(enemy);
+            updateShape(astroid);
         }
     }
 
@@ -41,19 +40,31 @@ public class EnemyControlSystem implements IEntityProcessingService {
         float x = positionPart.getX();
         float y = positionPart.getY();
         float radians = positionPart.getRadians();
-        int[] color = new int[]{1, 0, 0, 1};
+        int[] color = new int[]{0, 1, 0, 1};
 
         entity.addShapeXpoint((float) (x + Math.cos(radians) * 8));
         entity.addShapeYpoint((float) (y + Math.sin(radians) * 8));
+        
+        entity.addShapeXpoint((float) (x + Math.cos(radians - 2) * 4));
+        entity.addShapeYpoint((float) (y + Math.sin(radians - 2) * 4));
 
         entity.addShapeXpoint((float) (x + Math.cos(radians - 4 * 3.1415f / 5) * 8));
         entity.addShapeYpoint((float) (y + Math.sin(radians - 4 * 3.1145f / 5) * 8));
+        
+        entity.addShapeXpoint((float) (x + Math.cos(radians + 2) * 3));
+        entity.addShapeYpoint((float) (y + Math.sin(radians + 2) * 3));
 
         entity.addShapeXpoint((float) (x + Math.cos(radians + 3.1415f) * 5));
         entity.addShapeYpoint((float) (y + Math.sin(radians + 3.1415f) * 5));
+        
+        entity.addShapeXpoint((float) (x + Math.cos(radians + 5) * 6));
+        entity.addShapeYpoint((float) (y + Math.sin(radians + 5) * 6));
 
         entity.addShapeXpoint((float) (x + Math.cos(radians + 4 * 3.1415f / 5) * 8));
         entity.addShapeYpoint((float) (y + Math.sin(radians + 4 * 3.1415f / 5) * 8));
+        
+        entity.addShapeXpoint((float) (x + Math.cos(radians - 5) * 6));
+        entity.addShapeYpoint((float) (y + Math.sin(radians - 5) * 6));
 
         entity.setColor(color);
     }

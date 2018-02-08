@@ -10,6 +10,7 @@ public class GameData {
     private float delta;
     private int displayWidth;
     private int displayHeight;
+    private int difficulty = 1;
     private final GameKeys keys = new GameKeys();
     private List<Event> events = new CopyOnWriteArrayList<>();
 
@@ -51,6 +52,22 @@ public class GameData {
 
     public int getDisplayHeight() {
         return displayHeight;
+    }
+    
+    public int getDifficulty(){
+        return difficulty;
+    }
+    
+    public void increaseDifficulty(){
+        this.difficulty ++;
+    }
+    
+    public void reduceDifficultry(){
+        this.difficulty --;
+    }
+    
+    public void setDifficulty(int difficulty){
+        this.difficulty = difficulty;
     }
 
     public <E extends Event> List<Event> getEvents(Class<E> type, String sourceID) {
