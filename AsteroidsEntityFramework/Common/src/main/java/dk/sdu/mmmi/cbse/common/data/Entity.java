@@ -32,6 +32,17 @@ public class Entity implements Serializable {
         return (E) parts.get(partClass);
     }
     
+    public boolean containPart(Class partClass){
+        boolean check = false;
+        for(Class c : parts.keySet()){
+            if(partClass.equals(c)){
+                check = true;
+                break;
+            }
+        }
+        return check;
+    }
+    
     public void setColor(int[] color){
         this.color = color;
     }

@@ -3,13 +3,13 @@ package dk.sdu.mmmi.cbse.astroid;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
+import dk.sdu.mmmi.cbse.common.data.entityparts.CollisionPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 import static java.lang.Math.sqrt;
-import java.util.Random;
 
 /**
  *
@@ -27,7 +27,6 @@ public class AstroidControlSystem implements IEntityProcessingService {
             movingPart.setUp(true);
             
             
-            
             movingPart.process(gameData, astroid);
             positionPart.process(gameData, astroid);
 
@@ -43,44 +42,27 @@ public class AstroidControlSystem implements IEntityProcessingService {
         float radians = positionPart.getRadians();
         int[] color = new int[]{0, 1, 0, 1};
 
-        entity.addShapeXpoint((float) (x + Math.cos(radians) * 8));
-        entity.addShapeYpoint((float) (y + Math.sin(radians) * 8));
+        entity.addShapeXpoint((float) (x + Math.cos(radians) * 15));
+        entity.addShapeYpoint((float) (y + Math.sin(radians) * 15));
         
-        entity.addShapeXpoint((float) (x + Math.cos(radians - 2) * 4));
-        entity.addShapeYpoint((float) (y + Math.sin(radians - 2) * 4));
+        entity.addShapeXpoint((float) (x + Math.cos(radians - 1) * 15));
+        entity.addShapeYpoint((float) (y + Math.sin(radians - 1) * 15));
 
-        entity.addShapeXpoint((float) (x + Math.cos(radians - 5) * 5));
-        entity.addShapeYpoint((float) (y + Math.sin(radians - 5) * 5));
+        entity.addShapeXpoint((float) (x + Math.cos(radians - 2) * 15));
+        entity.addShapeYpoint((float) (y + Math.sin(radians - 2) * 15));
         
-        entity.addShapeXpoint((float) (x + Math.cos(radians - 8) * 2));
-        entity.addShapeYpoint((float) (y + Math.sin(radians - 8) * 2));
+        entity.addShapeXpoint((float) (x + Math.cos(radians - 3) * 15));
+        entity.addShapeYpoint((float) (y + Math.sin(radians - 3) * 15));
         
-        entity.addShapeXpoint((float) (x + Math.cos(radians - 2) * 4));
-        entity.addShapeYpoint((float) (y + Math.sin(radians - 2) * 4));
-
-
+        entity.addShapeXpoint((float) (x + Math.cos(radians - 4) * 15));
+        entity.addShapeYpoint((float) (y + Math.sin(radians - 4) * 15));
         
-
+        entity.addShapeXpoint((float) (x + Math.cos(radians - 5) * 15));
+        entity.addShapeYpoint((float) (y + Math.sin(radians - 5) * 15));
+        
         entity.setColor(color);
     }
     
-    public void SetAstroidDirection(MovingPart part){
-        Random random = new Random();
-        int Direction = random.nextInt(2);
-        
-        switch(Direction){
-            case 0:
-                part.setRight(false);
-                part.setLeft(true);
-                break;
-            case 1:
-                part.setLeft(false);
-                part.setRight(true);
-                break;
-            default:
-                part.setRight(false);
-                part.setLeft(false);
-        }
-    }
+    
 
 }

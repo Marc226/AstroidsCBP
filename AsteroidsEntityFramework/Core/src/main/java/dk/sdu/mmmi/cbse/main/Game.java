@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import dk.sdu.mmmi.cbse.Shaper.Draw;
 import dk.sdu.mmmi.cbse.Shaper.DrawPoints;
+import dk.sdu.mmmi.cbse.astroid.AstroidCollisionDetection;
 import dk.sdu.mmmi.cbse.astroid.AstroidControlSystem;
 import dk.sdu.mmmi.cbse.astroid.AstroidPlugin;
 import dk.sdu.mmmi.cbse.common.data.Entity;
@@ -14,11 +15,14 @@ import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
+import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
+import dk.sdu.mmmi.cbse.enemysystem.EnemyCollisionDetection;
 import dk.sdu.mmmi.cbse.managers.GameInputProcessor;
 import dk.sdu.mmmi.cbse.playersystem.PlayerPlugin;
 import dk.sdu.mmmi.cbse.playersystem.PlayerControlSystem;
 import dk.sdu.mmmi.cbse.enemysystem.EnemyPlugin;
 import dk.sdu.mmmi.cbse.enemysystem.EnemyControlSystem;
+import dk.sdu.mmmi.cbse.playersystem.PlayerCollisionDetection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +34,7 @@ public class Game implements ApplicationListener {
     private ShapeRenderer sr;
     private List<IEntityProcessingService> entityProcessors = new ArrayList<>();
     private List<IGamePluginService> entityPlugins = new ArrayList<>();
+    private List<IPostEntityProcessingService> entityPostProcessors = new ArrayList<>();
     private World world = new World();
 
     @Override
@@ -50,6 +55,7 @@ public class Game implements ApplicationListener {
         
         loadPlugins();
         loadProcesses();
+        loadPostProcesses();
 
         // Lookup all Game Plugins using ServiceLoader
         for (IGamePluginService iGamePlugin : entityPlugins) {
@@ -76,6 +82,16 @@ public class Game implements ApplicationListener {
         entityProcessors.add(enemyProcess);
         entityProcessors.add(astroidProcess);
     }
+    
+    public void loadPostProcesses(){
+        IPostEntityProcessingService playerPostProcess = new PlayerCollisionDetection();
+        IPostEntityProcessingService enemyPostProcess = new EnemyCollisionDetection();
+        IPostEntityProcessingService astroidPostProcess = new AstroidCollisionDetection();
+        
+        entityPostProcessors.add(playerPostProcess);
+        entityPostProcessors.add(enemyPostProcess);
+        entityPostProcessors.add(astroidPostProcess);
+    }
 
     @Override
     public void render() {
@@ -97,6 +113,10 @@ public class Game implements ApplicationListener {
         // Update
         for (IEntityProcessingService entityProcessorService : entityProcessors) {
            entityProcessorService.process(gameData, world);
+        }
+        
+        for(IPostEntityProcessingService entityPostProcessingService: entityPostProcessors){
+            entityPostProcessingService.process(gameData, world);
         }
     }
 

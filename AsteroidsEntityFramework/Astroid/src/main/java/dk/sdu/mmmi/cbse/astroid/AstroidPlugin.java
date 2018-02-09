@@ -4,6 +4,7 @@ package dk.sdu.mmmi.cbse.astroid;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
+import dk.sdu.mmmi.cbse.common.data.entityparts.CollisionPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.Vector;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
@@ -39,7 +41,7 @@ public class AstroidPlugin implements IGamePluginService {
                 astroidList.add(astroid);
                 world.addEntity(astroid);
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(random.nextInt(5000));
                 } catch (InterruptedException ex) {
                     Logger.getLogger(AstroidPlugin.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -54,13 +56,15 @@ public class AstroidPlugin implements IGamePluginService {
         float acceleration = 100;
         float maxSpeed = 50*gameData.getDifficulty();
         float rotationSpeed = 10;
-        float x = random.nextInt(gameData.getDisplayHeight());
-        float y = random.nextInt(gameData.getDisplayWidth());
-        float radians = setAstroidDirection(world, x, y);
+        
+        int[] position = getAstroidStartPosition(gameData.getDisplayWidth(), gameData.getDisplayHeight());
+        
+        float radians = setAstroidDirection(world, position[0], position[1]);
         
         Entity astroid = new Astroid();
         astroid.add(new MovingPart(deacceleration, acceleration, maxSpeed, rotationSpeed));
-        astroid.add(new PositionPart(x, y, radians));
+        astroid.add(new PositionPart(position[0], position[1], radians));
+        astroid.add(new CollisionPart());
         
         return astroid;
     }
@@ -87,10 +91,38 @@ public class AstroidPlugin implements IGamePluginService {
         float radians = 0;
         for(Entity entity : world.getEntities(Player.class)){
                 PositionPart Player = entity.getPart(PositionPart.class);
-                radians = (float)Math.atan2(x - Player.getX(), y - Player.getY());
-                System.out.println(radians*180/Math.PI);
+                radians = (float)Math.atan2(Player.getX() - x, Player.getY() - y);
             }
         return radians;
+    }
+    
+    public int[] getAstroidStartPosition(int width, int height){
+        int[] position = new int[2];
+        int side = random.nextInt(4);
+        
+        switch(side){
+            case 0:
+               position[0] = 0;
+               position[1] = random.nextInt(height);
+               break;
+            case 1: 
+               position[0] = width;
+               position[1] = random.nextInt(height);
+               break;
+            case 2:
+               position[0] = random.nextInt(width);
+               position[1] = 0;
+               break;
+            case 3:
+               position[0] = random.nextInt(width);
+               position[1] = height;
+               break;
+            default:
+               position[0] = 0;
+               position[1] = 0;
+        }
+        
+        return position;
     }
 
 }
