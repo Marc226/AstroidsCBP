@@ -12,6 +12,7 @@ import dk.sdu.mmmi.cbse.astroid.AstroidControlSystem;
 import dk.sdu.mmmi.cbse.astroid.AstroidPlugin;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
+import static dk.sdu.mmmi.cbse.common.data.GameKeys.SPACE;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
@@ -25,6 +26,8 @@ import dk.sdu.mmmi.cbse.enemysystem.EnemyControlSystem;
 import dk.sdu.mmmi.cbse.playersystem.PlayerCollisionDetection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Game implements ApplicationListener {
 
@@ -110,13 +113,17 @@ public class Game implements ApplicationListener {
     }
 
     private void update() {
-        // Update
-        for (IEntityProcessingService entityProcessorService : entityProcessors) {
-           entityProcessorService.process(gameData, world);
-        }
-        
-        for(IPostEntityProcessingService entityPostProcessingService: entityPostProcessors){
-            entityPostProcessingService.process(gameData, world);
+        if(gameData.getKeys().isDown(SPACE) == true){
+            pause();
+        } else {   
+            // Update
+            for (IEntityProcessingService entityProcessorService : entityProcessors) {
+               entityProcessorService.process(gameData, world);
+            }
+
+            for(IPostEntityProcessingService entityPostProcessingService: entityPostProcessors){
+                entityPostProcessingService.process(gameData, world);
+            }
         }
     }
 
@@ -141,7 +148,9 @@ public class Game implements ApplicationListener {
         }
     }
     
-
+    public void eventHandler(){
+        
+    }
 
     @Override
     public void resize(int width, int height) {
@@ -149,6 +158,7 @@ public class Game implements ApplicationListener {
 
     @Override
     public void pause() {
+        
     }
 
     @Override

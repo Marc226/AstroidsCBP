@@ -5,6 +5,7 @@ import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.data.entityparts.CollisionPart;
+import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
@@ -21,7 +22,6 @@ public class EnemyPlugin implements IGamePluginService {
         
         // Add entities to the world
         enemy = createEnemyShip(gameData);
-        System.out.println();
         world.addEntity(enemy);
     }
 
@@ -34,11 +34,16 @@ public class EnemyPlugin implements IGamePluginService {
         float x = gameData.getDisplayWidth() / 2;
         float y = gameData.getDisplayHeight() / 2;
         float radians = 3.1415f / 2;
+        int life = 1;
+        
+        int[] color = new int[]{1, 0, 0, 1};
         
         Entity enemyShip = new Enemy();
+        enemyShip.setColor(color);
         enemyShip.add(new MovingPart(deacceleration, acceleration, maxSpeed, rotationSpeed));
         enemyShip.add(new PositionPart(x, y, radians));
         enemyShip.add(new CollisionPart());
+        enemyShip.add(new LifePart(life, true));
         
         return enemyShip;
     }
@@ -47,6 +52,12 @@ public class EnemyPlugin implements IGamePluginService {
     public void stop(GameData gameData, World world) {
         // Remove entities
         world.removeEntity(enemy);
+    }
+
+    @Override
+    public void create(GameData gameData, World world, Entity entity) {
+        enemy = createEnemyShip(gameData);
+        world.addEntity(enemy);
     }
 
 }

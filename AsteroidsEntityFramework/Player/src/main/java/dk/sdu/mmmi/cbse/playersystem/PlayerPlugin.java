@@ -4,6 +4,7 @@ import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.data.entityparts.CollisionPart;
+import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
@@ -32,11 +33,17 @@ public class PlayerPlugin implements IGamePluginService {
         float x = gameData.getDisplayWidth() / 2;
         float y = gameData.getDisplayHeight() / 2;
         float radians = 3.1415f / 2;
+        int life = 3;
+        
+        
+        int[] color = new int[]{1, 1, 1, 1};
         
         Entity playerShip = new Player();
+        playerShip.setColor(color);
         playerShip.add(new MovingPart(deacceleration, acceleration, maxSpeed, rotationSpeed));
         playerShip.add(new PositionPart(x, y, radians));
         playerShip.add(new CollisionPart());
+        playerShip.add(new LifePart(life, true));
         
         return playerShip;
     }
@@ -45,6 +52,12 @@ public class PlayerPlugin implements IGamePluginService {
     public void stop(GameData gameData, World world) {
         // Remove entities
         world.removeEntity(player);
+    }
+
+    @Override
+    public void create(GameData gameData, World world, Entity entity) {
+        player = createPlayerShip(gameData);
+        world.addEntity(player);
     }
 
 }

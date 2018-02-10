@@ -45,7 +45,6 @@ public class PlayerControlSystem implements IEntityProcessingService {
         float x = positionPart.getX();
         float y = positionPart.getY();
         float radians = positionPart.getRadians();
-        int[] color = new int[]{1, 1, 1, 1};
 
         entity.addShapeXpoint((float) (x + Math.cos(radians) * 8));
         entity.addShapeYpoint((float) (y + Math.sin(radians) * 8));
@@ -59,7 +58,6 @@ public class PlayerControlSystem implements IEntityProcessingService {
         entity.addShapeXpoint((float) (x + Math.cos(radians + 4 * 3.1415f / 5) * 8));
         entity.addShapeYpoint((float) (y + Math.sin(radians + 4 * 3.1415f / 5) * 8));
         
-        entity.setColor(color);
     }
 
 }

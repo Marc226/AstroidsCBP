@@ -15,6 +15,7 @@ public class Entity implements Serializable {
     private float radius;
     private int[] color = new int[4];
     private Map<Class, EntityPart> parts;
+    private String spritePath = "";
     
     public Entity() {
         parts = new ConcurrentHashMap<>();
@@ -83,5 +84,13 @@ public class Entity implements Serializable {
     public void clearShape(){
         shapeX.clear();
         shapeY.clear();
+    }
+    
+    public void setSprite(String path){
+        this.spritePath = path;
+    }
+    
+    public String getSprite(){
+        return this.spritePath;
     }
 }

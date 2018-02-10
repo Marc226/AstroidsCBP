@@ -40,7 +40,6 @@ public class AstroidControlSystem implements IEntityProcessingService {
         float x = positionPart.getX();
         float y = positionPart.getY();
         float radians = positionPart.getRadians();
-        int[] color = new int[]{0, 1, 0, 1};
 
         entity.addShapeXpoint((float) (x + Math.cos(radians) * 15));
         entity.addShapeYpoint((float) (y + Math.sin(radians) * 15));
@@ -60,7 +59,6 @@ public class AstroidControlSystem implements IEntityProcessingService {
         entity.addShapeXpoint((float) (x + Math.cos(radians - 5) * 15));
         entity.addShapeYpoint((float) (y + Math.sin(radians - 5) * 15));
         
-        entity.setColor(color);
     }
     
     

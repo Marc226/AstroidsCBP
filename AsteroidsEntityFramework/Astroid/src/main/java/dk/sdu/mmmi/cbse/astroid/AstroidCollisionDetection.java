@@ -9,6 +9,7 @@ import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.data.entityparts.CollisionPart;
+import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
 import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
 
 /**
@@ -20,12 +21,21 @@ public class AstroidCollisionDetection implements IPostEntityProcessingService{
     @Override
     public void process(GameData gameData, World world) {
         for (Entity astroid : world.getEntities(Astroid.class)) {
+            
             CollisionPart collisionPart = astroid.getPart(CollisionPart.class);
-            for(Entity secondEntity : world.getEntities())
-                if(secondEntity.containPart(CollisionPart.class) && !secondEntity.equals(Astroid.class)){
+            LifePart lifePart = astroid.getPart(LifePart.class);
+            
+            for(Entity secondEntity : world.getEntities()){
+                if(secondEntity.containPart(CollisionPart.class) && !astroid.getID().equals(secondEntity.getID())){
                     collisionPart.setEntityTwo(secondEntity);
                     collisionPart.process(gameData, astroid);
                 }
+            }
+            
+            lifePart.process(gameData, astroid);
+            if(lifePart.getLife() <= 0){
+                world.removeEntity(astroid);
+            }
         }
     }
     

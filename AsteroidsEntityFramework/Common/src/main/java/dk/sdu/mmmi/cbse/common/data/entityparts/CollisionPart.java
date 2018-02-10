@@ -47,7 +47,15 @@ public class CollisionPart implements EntityPart{
         }
         
         if(isWithin(polyOne, polyTwo) == true){
-            System.out.println("Collision!");
+            LifePart life;
+            if(entity.containPart(LifePart.class)){
+                life = entity.getPart(LifePart.class);
+                life.setIsHit(true);
+            }
+            if (EntityTwo.containPart(LifePart.class)){
+                life = EntityTwo.getPart(LifePart.class);
+                life.setIsHit(true);
+            }
         }
         
     }
@@ -56,10 +64,9 @@ public class CollisionPart implements EntityPart{
         boolean collision = false;
         Area areaOne = new Area(polyOne);
         areaOne.intersect(new Area(polyTwo));
-        if(areaOne.isEmpty() == false){
+        if(!areaOne.isEmpty()){
             collision = true;
         }
-        
         return collision;
     }
     

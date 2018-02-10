@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dk.sdu.mmmi.cbse.enemysystem;
+package dk.sdu.mmmi.cbse.splitobject;
 
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
@@ -16,24 +16,27 @@ import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
  *
  * @author Marcg
  */
-public class EnemyCollisionDetection implements IPostEntityProcessingService{
+public class SplitObjectCollisionDetection implements IPostEntityProcessingService{
 
     @Override
     public void process(GameData gameData, World world) {
-        for (Entity enemy : world.getEntities(Enemy.class)) {
-            CollisionPart collisionPart = enemy.getPart(CollisionPart.class);
-            LifePart lifePart = enemy.getPart(LifePart.class);
+        for (Entity splitObject : world.getEntities(SplitObejct.class)) {
+            
+            CollisionPart collisionPart = splitObject.getPart(CollisionPart.class);
+            LifePart lifePart = splitObject.getPart(LifePart.class);
             
             for(Entity secondEntity : world.getEntities()){
-                if(secondEntity.containPart(CollisionPart.class) && !secondEntity.getClass().equals(Enemy.class)){
+                if(secondEntity.containPart(CollisionPart.class) && !splitObject.getID().equals(secondEntity.getID())){
                     collisionPart.setEntityTwo(secondEntity);
-                    collisionPart.process(gameData, enemy);
+                    collisionPart.process(gameData, splitObject);
                 }
             }
             
-            lifePart.process(gameData, enemy);
+            lifePart.process(gameData, splitObject);
+            if(lifePart.getLife() <= 0){
+                world.removeEntity(splitObject);
+            }
         }
-        
     }
     
 }

@@ -9,6 +9,7 @@ import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.data.entityparts.CollisionPart;
+import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
 import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
 
 /**
@@ -21,11 +22,16 @@ public class PlayerCollisionDetection implements IPostEntityProcessingService{
     public void process(GameData gameData, World world) {
         for (Entity player : world.getEntities(Player.class)) {
             CollisionPart collisionPart = player.getPart(CollisionPart.class);
-            for(Entity secondEntity : world.getEntities())
-                if(secondEntity.containPart(CollisionPart.class)){
+            LifePart lifePart = player.getPart(LifePart.class);
+            
+            for(Entity secondEntity : world.getEntities()){
+                if(secondEntity.containPart(CollisionPart.class) && !secondEntity.getClass().equals(Player.class)){
                     collisionPart.setEntityTwo(secondEntity);
                     collisionPart.process(gameData, player);
                 }
+            }
+            
+            lifePart.process(gameData, player);
         }
     }
     

@@ -5,6 +5,7 @@ import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.data.entityparts.CollisionPart;
+import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
@@ -56,15 +57,23 @@ public class AstroidPlugin implements IGamePluginService {
         float acceleration = 100;
         float maxSpeed = 50*gameData.getDifficulty();
         float rotationSpeed = 10;
+        float radius = 7;
+        int life = 1;
+        float expiration = 30;
+        
+        int[] color = new int[]{0, 1, 0, 1};
         
         int[] position = getAstroidStartPosition(gameData.getDisplayWidth(), gameData.getDisplayHeight());
         
         float radians = setAstroidDirection(world, position[0], position[1]);
         
         Entity astroid = new Astroid();
+        astroid.setRadius(radius);
+        astroid.setColor(color);
         astroid.add(new MovingPart(deacceleration, acceleration, maxSpeed, rotationSpeed));
         astroid.add(new PositionPart(position[0], position[1], radians));
         astroid.add(new CollisionPart());
+        astroid.add(new LifePart(life, expiration));
         
         return astroid;
     }
@@ -123,6 +132,13 @@ public class AstroidPlugin implements IGamePluginService {
         }
         
         return position;
+    }
+
+    @Override
+    public void create(GameData gameData, World world, Entity entity) {
+        astroid = createAstroid(gameData, world);
+        astroidList.add(astroid);
+        world.addEntity(astroid);
     }
 
 }

@@ -7,6 +7,10 @@ package dk.sdu.mmmi.cbse.common.data.entityparts;
 
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,11 +20,18 @@ public class LifePart implements EntityPart {
 
     private int life;
     private boolean isHit = false;
-    private float expiration;
+    private float expiration = 0;
+    private boolean invulnerable = false;
+    private boolean player = false;
+    private ExecutorService executor = Executors.newFixedThreadPool(1);
 
     public LifePart(int life, float expiration) {
         this.life = life;
         this.expiration = expiration;
+    }
+    
+    public LifePart(int life, boolean player){
+        this.player = player;
     }
 
     public int getLife() {
@@ -50,9 +61,34 @@ public class LifePart implements EntityPart {
     public void reduceExpiration(float delta){
         this.expiration -= delta;
     }
+
     
     @Override
     public void process(GameData gameData, Entity entity) {
+        reduceExpiration(gameData.getDelta());
+        if(invulnerable != true){
+            if (expiration <= 0 && player == false){
+                System.out.println(entity.getID() + " expired");
+                life = 0;
+            }
+
+            if(isHit == true){
+                life --;
+                invulnerable = true;
+            }
+        } else {
+            executor.execute(()->{
+                try {
+                    Thread.sleep(5000);
+                    isHit = false;
+                    invulnerable = false;
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(LifePart.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+            });
+        }
         
     }
+    
 }
