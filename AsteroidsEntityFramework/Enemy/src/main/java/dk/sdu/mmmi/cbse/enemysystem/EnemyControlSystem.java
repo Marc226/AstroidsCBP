@@ -5,6 +5,7 @@ import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
+import dk.sdu.mmmi.cbse.common.data.entityparts.ShootingPart;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
@@ -23,6 +24,7 @@ public class EnemyControlSystem implements IEntityProcessingService {
         for (Entity enemy : world.getEntities(Enemy.class)) {
             PositionPart positionPart = enemy.getPart(PositionPart.class);
             MovingPart movingPart = enemy.getPart(MovingPart.class);
+            ShootingPart shootingPart = enemy.getPart(ShootingPart.class);
 
             SetEnemyDirection(movingPart);
             movingPart.setUp(true);
@@ -30,6 +32,7 @@ public class EnemyControlSystem implements IEntityProcessingService {
             
             movingPart.process(gameData, enemy);
             positionPart.process(gameData, enemy);
+            shootingPart.process(gameData, enemy);
 
             updateShape(enemy);
         }
@@ -59,6 +62,8 @@ public class EnemyControlSystem implements IEntityProcessingService {
     public void SetEnemyDirection(MovingPart part){
         Random random = new Random();
         int Direction = random.nextInt(2);
+        
+        
         
         switch(Direction){
             case 0:

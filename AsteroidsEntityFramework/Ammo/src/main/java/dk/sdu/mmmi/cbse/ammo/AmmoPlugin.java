@@ -8,19 +8,12 @@ import dk.sdu.mmmi.cbse.common.data.entityparts.CollisionPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
-import dk.sdu.mmmi.cbse.common.data.entityparts.SplitAblePart;
 import dk.sdu.mmmi.cbse.common.events.Event;
 import dk.sdu.mmmi.cbse.common.events.ShootEvent;
-import dk.sdu.mmmi.cbse.common.events.SplitEvent;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class AmmoPlugin implements IGamePluginService {
 
@@ -53,7 +46,7 @@ public class AmmoPlugin implements IGamePluginService {
         PositionPart position = entity.getPart(PositionPart.class);
         
         float deacceleration = movingPart.getDeceleration();
-        float acceleration = movingPart.getAcceleration();
+        float acceleration = 400;
         float maxSpeed = 400;
         int life = 1;
         float expiration = 30;

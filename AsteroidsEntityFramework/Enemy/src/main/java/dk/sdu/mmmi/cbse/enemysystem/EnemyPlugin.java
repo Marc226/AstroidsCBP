@@ -8,6 +8,7 @@ import dk.sdu.mmmi.cbse.common.data.entityparts.CollisionPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
+import dk.sdu.mmmi.cbse.common.data.entityparts.ShootingPart;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 
 public class EnemyPlugin implements IGamePluginService {
@@ -29,7 +30,7 @@ public class EnemyPlugin implements IGamePluginService {
 
         float deacceleration = 10;
         float acceleration = 200;
-        float maxSpeed = 300;
+        float maxSpeed = 100*gameData.getDifficulty();
         float rotationSpeed = 10;
         float x = gameData.getDisplayWidth() / 2;
         float y = gameData.getDisplayHeight() / 2;
@@ -40,6 +41,7 @@ public class EnemyPlugin implements IGamePluginService {
         
         Entity enemyShip = new Enemy();
         enemyShip.setColor(color);
+        enemyShip.add(new ShootingPart(5000));
         enemyShip.add(new MovingPart(deacceleration, acceleration, maxSpeed, rotationSpeed));
         enemyShip.add(new PositionPart(x, y, radians));
         enemyShip.add(new CollisionPart());
