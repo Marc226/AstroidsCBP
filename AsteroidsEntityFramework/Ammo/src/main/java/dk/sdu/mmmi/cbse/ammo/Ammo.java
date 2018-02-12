@@ -13,4 +13,14 @@ import dk.sdu.mmmi.cbse.common.data.Entity;
  */
 public class Ammo extends Entity{
     
+    private final Entity source;
+    
+    public Ammo(Entity source){
+        this.source = source;
+    }
+    
+    @Override
+    public Entity getSource(){
+        return source;
+    }
 }

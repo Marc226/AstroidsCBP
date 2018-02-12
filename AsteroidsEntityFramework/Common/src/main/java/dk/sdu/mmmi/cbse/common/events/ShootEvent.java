@@ -3,20 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dk.sdu.mmmi.cbse.Shaper;
+package dk.sdu.mmmi.cbse.common.events;
 
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 
 /**
  *
  * @author Marc
  */
-public class DrawSprite implements Draw {
-
-    @Override
-    public void draw(Entity entity, ShapeRenderer sr) {
-        
+public class ShootEvent extends Event{
+    
+    public ShootEvent(Entity source) {
+        super(source);
     }
     
 }

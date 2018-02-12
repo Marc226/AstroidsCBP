@@ -9,12 +9,14 @@ import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.SplitAblePart;
+import dk.sdu.mmmi.cbse.common.events.Event;
+import dk.sdu.mmmi.cbse.common.events.ShootEvent;
+import dk.sdu.mmmi.cbse.common.events.SplitEvent;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import java.util.Vector;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
@@ -22,13 +24,10 @@ import java.util.logging.Logger;
 
 public class AmmoPlugin implements IGamePluginService {
 
-    private Entity astroid;
+    private Entity ammo;
+    private boolean active = false;
     private Random random = new Random();
-    private List<Entity> astroidList = Collections.synchronizedList(new ArrayList());
     private ExecutorService executor = Executors.newFixedThreadPool(1);
-    private boolean active = true;
-    private int MeteorIncreaseDifficulty = 0;
-    private int MeteorNextIncrease = random.nextInt(15);
     
     public AmmoPlugin() {
     }
@@ -36,107 +35,54 @@ public class AmmoPlugin implements IGamePluginService {
     @Override
     public void start(GameData gameData, World world) {
         active = true;
-        executor.submit(()->{
+        executor.execute(()->{
             while(active){
-                astroid = createAstroid(gameData, world);
-                astroidList.add(astroid);
-                world.addEntity(astroid);
-                try {
-                    Thread.sleep(random.nextInt(5000));
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(AmmoPlugin.class.getName()).log(Level.SEVERE, null, ex);
+                for(Event event : gameData.getEvents(ShootEvent.class)){
+                    
+                    ammo = createAmmo(gameData, world, event.getSource());
+                    world.addEntity(ammo);
+                    
+                    gameData.removeEvent(event);
                 }
             }
         });
-        
     }
 
-    private Entity createAstroid(GameData gameData, World world) {
-        increaseDifficulty(gameData);
-        float deacceleration = 10;
-        float acceleration = 100;
-        float maxSpeed = 50*gameData.getDifficulty();
-        float rotationSpeed = 10;
-        float radius = 7;
+    private Entity createAmmo(GameData gameData, World world, Entity entity) {
+        MovingPart movingPart = entity.getPart(MovingPart.class);
+        PositionPart position = entity.getPart(PositionPart.class);
+        
+        float deacceleration = movingPart.getDeceleration();
+        float acceleration = movingPart.getAcceleration();
+        float maxSpeed = 400;
         int life = 1;
         float expiration = 30;
         
-        int[] color = new int[]{0, 1, 0, 1};
+      
         
-        int[] position = getAstroidStartPosition(gameData.getDisplayWidth(), gameData.getDisplayHeight());
         
-        float radians = setAstroidDirection(world, position[0], position[1]);
+        Entity splitObject = new Ammo(entity);
+        splitObject.setColor(entity.getColor());
+        splitObject.add(new MovingPart(deacceleration, acceleration, maxSpeed, 0));
+        splitObject.add(new PositionPart(position.getX(), position.getY(), position.getRadians()));
+        splitObject.add(new CollisionPart());
+        splitObject.add(new LifePart(life, expiration, 1000));
         
-        Entity astroid = new Ammo();
-        astroid.setRadius(radius);
-        astroid.setColor(color);
-        astroid.add(new MovingPart(deacceleration, acceleration, maxSpeed, rotationSpeed));
-        astroid.add(new PositionPart(position[0], position[1], radians));
-        astroid.add(new CollisionPart());
-        astroid.add(new LifePart(life, expiration, 1000));
-        astroid.add(new SplitAblePart());
-        
-        return astroid;
+        return splitObject;
     }
 
     @Override
     public void stop(GameData gameData, World world) {
         active = false;
         // Remove entities
-        for(Entity astroidItem: astroidList){
-            world.removeEntity(astroidItem);
-        }
     }
     
-    public void increaseDifficulty(GameData gameData){
-        if(MeteorIncreaseDifficulty >= MeteorNextIncrease){
-            gameData.increaseDifficulty();
-            MeteorIncreaseDifficulty = 0;
-            MeteorNextIncrease = random.nextInt(15);
-        }
-        MeteorIncreaseDifficulty++;
-    }
-    
-    public float setAstroidDirection(World world, float x, float y){
-        float radians = 0;
-        
-        return radians;
-    }
-    
-    public int[] getAstroidStartPosition(int width, int height){
-        int[] position = new int[2];
-        int side = random.nextInt(4);
-        
-        switch(side){
-            case 0:
-               position[0] = 0;
-               position[1] = random.nextInt(height);
-               break;
-            case 1: 
-               position[0] = width;
-               position[1] = random.nextInt(height);
-               break;
-            case 2:
-               position[0] = random.nextInt(width);
-               position[1] = 0;
-               break;
-            case 3:
-               position[0] = random.nextInt(width);
-               position[1] = height;
-               break;
-            default:
-               position[0] = 0;
-               position[1] = 0;
-        }
-        
-        return position;
+    @Override
+    public void create(GameData gameData, World world, Entity entity){
+        ammo = createAmmo(gameData, world, entity);
+        world.addEntity(ammo);
     }
 
-    @Override
-    public void create(GameData gameData, World world, Entity entity) {
-        astroid = createAstroid(gameData, world);
-        astroidList.add(astroid);
-        world.addEntity(astroid);
-    }
+    
 
 }

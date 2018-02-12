@@ -22,3 +22,5 @@
 hs_err_pid*
 /AsteroidsEntityFramework/Enemy/target/
 /AsteroidsEntityFramework/Astroid/target/
+/AsteroidsEntityFramework/SplitObject/target/
+/AsteroidsEntityFramework/Ammo/target/

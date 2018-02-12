@@ -20,17 +20,17 @@ public class AmmoControlSystem implements IEntityProcessingService {
     @Override
     public void process(GameData gameData, World world) {
 
-        for (Entity astroid : world.getEntities(Ammo.class)) {
-            PositionPart positionPart = astroid.getPart(PositionPart.class);
-            MovingPart movingPart = astroid.getPart(MovingPart.class);
+        for (Entity ammo : world.getEntities(Ammo.class)) {
+            PositionPart positionPart = ammo.getPart(PositionPart.class);
+            MovingPart movingPart = ammo.getPart(MovingPart.class);
 
             movingPart.setUp(true);
             
             
-            movingPart.process(gameData, astroid);
-            positionPart.process(gameData, astroid);
+            movingPart.process(gameData, ammo);
+            positionPart.process(gameData, ammo);
 
-            updateShape(astroid);
+            updateShape(ammo);
         }
     }
 
@@ -41,23 +41,15 @@ public class AmmoControlSystem implements IEntityProcessingService {
         float y = positionPart.getY();
         float radians = positionPart.getRadians();
 
-        entity.addShapeXpoint((float) (x + Math.cos(radians) * 15));
-        entity.addShapeYpoint((float) (y + Math.sin(radians) * 15));
+        entity.addShapeXpoint((float) (x + Math.cos(radians) * 4));
+        entity.addShapeYpoint((float) (y + Math.sin(radians) * 4));
         
-        entity.addShapeXpoint((float) (x + Math.cos(radians - 1) * 15));
-        entity.addShapeYpoint((float) (y + Math.sin(radians - 1) * 15));
-
-        entity.addShapeXpoint((float) (x + Math.cos(radians - 2) * 15));
-        entity.addShapeYpoint((float) (y + Math.sin(radians - 2) * 15));
+        entity.addShapeXpoint((float) (x + Math.cos(radians - 1)));
+        entity.addShapeYpoint((float) (y + Math.sin(radians - 1)));
         
-        entity.addShapeXpoint((float) (x + Math.cos(radians - 3) * 15));
-        entity.addShapeYpoint((float) (y + Math.sin(radians - 3) * 15));
+        entity.addShapeXpoint((float) (x + Math.cos(radians)));
+        entity.addShapeYpoint((float) (y + Math.sin(radians)));
         
-        entity.addShapeXpoint((float) (x + Math.cos(radians - 4) * 15));
-        entity.addShapeYpoint((float) (y + Math.sin(radians - 4) * 15));
-        
-        entity.addShapeXpoint((float) (x + Math.cos(radians - 5) * 15));
-        entity.addShapeYpoint((float) (y + Math.sin(radians - 5) * 15));
         
     }
     

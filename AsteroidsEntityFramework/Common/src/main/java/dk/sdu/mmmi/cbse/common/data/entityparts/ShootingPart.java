@@ -7,21 +7,31 @@ package dk.sdu.mmmi.cbse.common.data.entityparts;
 
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
-import dk.sdu.mmmi.cbse.common.events.SplitEvent;
+import dk.sdu.mmmi.cbse.common.events.ShootEvent;
 
 /**
  *
  * @author Marc
  */
-public class SplitAblePart implements EntityPart{
-
-    public SplitAblePart(){
+public class ShootingPart implements EntityPart{
+    
+    private boolean shoot = false;
+    
+    public ShootingPart(){
         
     }
     
+    public void shoot(boolean key){
+        this.shoot = key;
+    }
+    
+    
     @Override
     public void process(GameData gameData, Entity entity) {
-            gameData.addEvent(new SplitEvent(entity));
+        if(shoot == true){
+            System.out.println("j");
+            gameData.addEvent(new ShootEvent(entity));
+        }
     }
     
 }

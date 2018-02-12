@@ -10,7 +10,6 @@ public class GameData {
     private float delta;
     private int displayWidth;
     private int displayHeight;
-    private boolean splitAble = false;
     private int difficulty = 1;
     private final GameKeys keys = new GameKeys();
     private List<Event> events = new CopyOnWriteArrayList<>();
@@ -71,18 +70,23 @@ public class GameData {
         this.difficulty = difficulty;
     }
 
-    public void setSplitable(boolean bool){
-        this.splitAble = bool;
-    }
     
-    public boolean getSplitAble(){
-        return this.splitAble;
-    }
     
     public <E extends Event> List<Event> getEvents(Class<E> type, Class<?> EntityClass) {
         List<Event> r = new ArrayList();
         for (Event event : events) {
             if (event.getClass().equals(type) && event.getSource().getClass().equals(EntityClass)) {
+                r.add(event);
+            }
+        }
+
+        return r;
+    }
+    
+    public <E extends Event> List<Event> getEvents(Class<E> type) {
+        List<Event> r = new ArrayList();
+        for (Event event : events) {
+            if (event.getClass().equals(type)) {
                 r.add(event);
             }
         }

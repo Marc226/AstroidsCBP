@@ -93,4 +93,8 @@ public class Entity implements Serializable {
     public String getSprite(){
         return this.spritePath;
     }
+    
+    public Entity getSource(){
+        return this;
+    }
 }

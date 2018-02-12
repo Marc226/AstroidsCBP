@@ -19,6 +19,7 @@ import java.util.concurrent.Executors;
 public class SplitAstroidPlugin implements IGamePluginService {
 
     private Entity splitObject;
+    private boolean active = false;
     private Random random = new Random();
     private ExecutorService executor = Executors.newFixedThreadPool(1);
     private final int amount = 2;
@@ -29,9 +30,9 @@ public class SplitAstroidPlugin implements IGamePluginService {
 
     @Override
     public void start(GameData gameData, World world) {
-        gameData.setSplitable(true);
+        active = true;
         executor.execute(()->{
-            while(gameData.getSplitAble() == true){
+            while(active){
                 for(Event event : gameData.getEvents(SplitEvent.class, Astroid.class)){
                     for(int i = 1; i <= amount; i++){
                         splitObject = createSplitObject(gameData, world, event.getSource());
@@ -72,7 +73,7 @@ public class SplitAstroidPlugin implements IGamePluginService {
     @Override
     public void stop(GameData gameData, World world) {
         // Remove entities
-        gameData.setSplitable(false);
+        active = false;
     }
     
     @Override

@@ -12,5 +12,7 @@ import dk.sdu.mmmi.cbse.common.data.Entity;
  * @author Marcg
  */
 public class Astroid extends Entity{
+
+    
     
 }

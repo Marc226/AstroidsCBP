@@ -36,9 +36,8 @@ public class AstroidCollisionDetection implements IPostEntityProcessingService{
             
             lifePart.process(gameData, astroid);
             if(lifePart.getLife() <= 0){
-                if(gameData.getSplitAble() == true){
-                    splitter.process(gameData, astroid);
-                }
+                splitter.process(gameData, astroid);
+                
                 world.removeEntity(astroid);
             }
         }
