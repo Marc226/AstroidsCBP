@@ -12,6 +12,7 @@
         <module>Enemy</module>
         <module>Astroid</module>
         <module>SplitObject</module>
+        <module>Ammo</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

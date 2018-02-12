@@ -9,18 +9,13 @@ import java.io.Serializable;
  */
 public class Event implements Serializable{
     private final Entity source;
-    private final String type;
 
-    public Event(Entity source, String type) {
+    public Event(Entity source) {
         this.source = source;
-        this.type = type;
     }
 
     public Entity getSource() {
         return source;
     }
     
-    public String getType(){
-        return type;
-    }
 }

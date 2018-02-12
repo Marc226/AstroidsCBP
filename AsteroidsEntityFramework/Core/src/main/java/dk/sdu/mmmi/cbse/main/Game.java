@@ -5,8 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import dk.sdu.mmmi.cbse.Shaper.Draw;
-import dk.sdu.mmmi.cbse.Shaper.DrawPoints;
 import dk.sdu.mmmi.cbse.astroid.AstroidCollisionDetection;
 import dk.sdu.mmmi.cbse.astroid.AstroidControlSystem;
 import dk.sdu.mmmi.cbse.astroid.AstroidPlugin;
@@ -24,6 +22,9 @@ import dk.sdu.mmmi.cbse.playersystem.PlayerControlSystem;
 import dk.sdu.mmmi.cbse.enemysystem.EnemyPlugin;
 import dk.sdu.mmmi.cbse.enemysystem.EnemyControlSystem;
 import dk.sdu.mmmi.cbse.playersystem.PlayerCollisionDetection;
+import dk.sdu.mmmi.cbse.splitobject.SplitAstroidCollisionDetection;
+import dk.sdu.mmmi.cbse.splitobject.SplitAstroidControlSystem;
+import dk.sdu.mmmi.cbse.splitobject.SplitAstroidPlugin;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -70,30 +71,36 @@ public class Game implements ApplicationListener {
         IGamePluginService enemyPlugin = new EnemyPlugin();
         IGamePluginService playerPlugin = new PlayerPlugin();
         IGamePluginService astroidPlugin = new AstroidPlugin();
+        IGamePluginService splitAstroidPlugin = new SplitAstroidPlugin();
         
         entityPlugins.add(playerPlugin);
         entityPlugins.add(enemyPlugin);
         entityPlugins.add(astroidPlugin);
+        entityPlugins.add(splitAstroidPlugin);
     }
     
     public void loadProcesses(){
         IEntityProcessingService playerProcess = new PlayerControlSystem();
         IEntityProcessingService enemyProcess = new EnemyControlSystem();
         IEntityProcessingService astroidProcess = new AstroidControlSystem();
+        IEntityProcessingService splitAstroidProcess = new SplitAstroidControlSystem();
 
         entityProcessors.add(playerProcess);
         entityProcessors.add(enemyProcess);
         entityProcessors.add(astroidProcess);
+        entityProcessors.add(splitAstroidProcess);
     }
     
     public void loadPostProcesses(){
         IPostEntityProcessingService playerPostProcess = new PlayerCollisionDetection();
         IPostEntityProcessingService enemyPostProcess = new EnemyCollisionDetection();
         IPostEntityProcessingService astroidPostProcess = new AstroidCollisionDetection();
+        IPostEntityProcessingService splitAstroidPostProcess = new SplitAstroidCollisionDetection();
         
         entityPostProcessors.add(playerPostProcess);
         entityPostProcessors.add(enemyPostProcess);
         entityPostProcessors.add(astroidPostProcess);
+        entityPostProcessors.add(splitAstroidPostProcess);
     }
 
     @Override
@@ -148,10 +155,6 @@ public class Game implements ApplicationListener {
         }
     }
     
-    public void eventHandler(){
-        
-    }
-
     @Override
     public void resize(int width, int height) {
     }

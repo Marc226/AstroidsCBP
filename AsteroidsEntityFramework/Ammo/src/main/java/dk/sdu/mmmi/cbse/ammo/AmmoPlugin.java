@@ -1,4 +1,4 @@
-package dk.sdu.mmmi.cbse.astroid;
+package dk.sdu.mmmi.cbse.ammo;
 
 
 import dk.sdu.mmmi.cbse.common.data.Entity;
@@ -10,7 +10,6 @@ import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.SplitAblePart;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
-import dk.sdu.mmmi.cbse.playersystem.Player;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -21,7 +20,7 @@ import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class AstroidPlugin implements IGamePluginService {
+public class AmmoPlugin implements IGamePluginService {
 
     private Entity astroid;
     private Random random = new Random();
@@ -31,7 +30,7 @@ public class AstroidPlugin implements IGamePluginService {
     private int MeteorIncreaseDifficulty = 0;
     private int MeteorNextIncrease = random.nextInt(15);
     
-    public AstroidPlugin() {
+    public AmmoPlugin() {
     }
 
     @Override
@@ -45,7 +44,7 @@ public class AstroidPlugin implements IGamePluginService {
                 try {
                     Thread.sleep(random.nextInt(5000));
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(AstroidPlugin.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(AmmoPlugin.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
@@ -68,7 +67,7 @@ public class AstroidPlugin implements IGamePluginService {
         
         float radians = setAstroidDirection(world, position[0], position[1]);
         
-        Entity astroid = new Astroid();
+        Entity astroid = new Ammo();
         astroid.setRadius(radius);
         astroid.setColor(color);
         astroid.add(new MovingPart(deacceleration, acceleration, maxSpeed, rotationSpeed));
@@ -100,10 +99,7 @@ public class AstroidPlugin implements IGamePluginService {
     
     public float setAstroidDirection(World world, float x, float y){
         float radians = 0;
-        for(Entity entity : world.getEntities(Player.class)){
-                PositionPart Player = entity.getPart(PositionPart.class);
-                radians = (float)Math.atan2(Player.getX() - x, Player.getY() - y);
-            }
+        
         return radians;
     }
     

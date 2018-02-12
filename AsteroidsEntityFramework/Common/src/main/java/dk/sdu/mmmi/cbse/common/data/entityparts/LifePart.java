@@ -21,13 +21,15 @@ public class LifePart implements EntityPart {
     private int life;
     private boolean isHit = false;
     private float expiration = 0;
-    private boolean invulnerable = false;
+    private boolean invulnerable = true;
+    private int invulnerableTime = 0;
     private boolean player = false;
     private ExecutorService executor = Executors.newFixedThreadPool(1);
 
-    public LifePart(int life, float expiration) {
+    public LifePart(int life, float expiration, int invulnerableTime) {
         this.life = life;
         this.expiration = expiration;
+        this.invulnerableTime = invulnerableTime;
     }
     
     public LifePart(int life, boolean player){
@@ -79,7 +81,7 @@ public class LifePart implements EntityPart {
         } else {
             executor.execute(()->{
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(invulnerableTime);
                     isHit = false;
                     invulnerable = false;
                 } catch (InterruptedException ex) {

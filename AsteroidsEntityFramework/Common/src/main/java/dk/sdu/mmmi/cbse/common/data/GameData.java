@@ -79,10 +79,10 @@ public class GameData {
         return this.splitAble;
     }
     
-    public <E extends Event> List<Event> getEvents(Class<E> type, String sourceID) {
+    public <E extends Event> List<Event> getEvents(Class<E> type, Class<?> EntityClass) {
         List<Event> r = new ArrayList();
         for (Event event : events) {
-            if (event.getClass().equals(type) && event.getSource().getID().equals(sourceID)) {
+            if (event.getClass().equals(type) && event.getSource().getClass().equals(EntityClass)) {
                 r.add(event);
             }
         }

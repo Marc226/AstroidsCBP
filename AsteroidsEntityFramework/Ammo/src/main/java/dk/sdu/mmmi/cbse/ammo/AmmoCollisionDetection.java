@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dk.sdu.mmmi.cbse.astroid;
+package dk.sdu.mmmi.cbse.ammo;
 
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
@@ -17,11 +17,11 @@ import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
  *
  * @author Marcg
  */
-public class AstroidCollisionDetection implements IPostEntityProcessingService{
+public class AmmoCollisionDetection implements IPostEntityProcessingService{
 
     @Override
     public void process(GameData gameData, World world) {
-        for (Entity astroid : world.getEntities(Astroid.class)) {
+        for (Entity astroid : world.getEntities(Ammo.class)) {
             
             CollisionPart collisionPart = astroid.getPart(CollisionPart.class);
             LifePart lifePart = astroid.getPart(LifePart.class);
