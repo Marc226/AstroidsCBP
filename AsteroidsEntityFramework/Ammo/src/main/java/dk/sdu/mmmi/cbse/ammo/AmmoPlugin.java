@@ -32,7 +32,7 @@ public class AmmoPlugin implements IGamePluginService {
             while(active){
                 for(Event event : gameData.getEvents(ShootEvent.class)){
                     
-                    ammo = createAmmo(gameData, world, event.getSource());
+                    ammo = createAmmo(gameData, event.getSource());
                     world.addEntity(ammo);
                     
                     gameData.removeEvent(event);
@@ -41,7 +41,7 @@ public class AmmoPlugin implements IGamePluginService {
         });
     }
 
-    private Entity createAmmo(GameData gameData, World world, Entity entity) {
+    private Entity createAmmo(GameData gameData, Entity entity) {
         MovingPart movingPart = entity.getPart(MovingPart.class);
         PositionPart position = entity.getPart(PositionPart.class);
         
@@ -72,7 +72,7 @@ public class AmmoPlugin implements IGamePluginService {
     
     @Override
     public void create(GameData gameData, World world, Entity entity){
-        ammo = createAmmo(gameData, world, entity);
+        ammo = createAmmo(gameData, entity);
         world.addEntity(ammo);
     }
 

@@ -11,10 +11,12 @@ import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.ShootingPart;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
+import java.util.Random;
 
 public class EnemyPlugin implements IGamePluginService {
 
     private Entity enemy;
+    private Random random = new Random();
 
     public EnemyPlugin() {
     }
@@ -31,12 +33,12 @@ public class EnemyPlugin implements IGamePluginService {
 
         float deacceleration = 10;
         float acceleration = 200;
-        float maxSpeed = 100*gameData.getDifficulty();
+        float maxSpeed = 200*gameData.getDifficulty();
         float rotationSpeed = 10;
-        float x = gameData.getDisplayWidth() / 2;
-        float y = gameData.getDisplayHeight() / 2;
+        float x = random.nextInt(gameData.getDisplayWidth());
+        float y = random.nextInt(gameData.getDisplayHeight());
         float radians = 3.1415f / 2;
-        int life = 1;
+        int life = 10;
         
         int[] color = new int[]{1, 0, 0, 1};
         

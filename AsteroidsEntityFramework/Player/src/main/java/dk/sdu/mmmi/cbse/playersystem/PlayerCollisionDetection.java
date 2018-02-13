@@ -32,6 +32,9 @@ public class PlayerCollisionDetection implements IPostEntityProcessingService{
             }
             
             lifePart.process(gameData, player);
+            if(lifePart.isIsHit() == true){
+                
+            }
         }
     }
     

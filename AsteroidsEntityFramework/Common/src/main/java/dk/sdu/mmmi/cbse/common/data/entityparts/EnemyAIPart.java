@@ -70,20 +70,19 @@ public class EnemyAIPart implements EntityPart{
     
     @Override
     public void process(GameData gameData, Entity entity) {
-        //System.out.println(x + " : " + y);
-        rotationSpeed += gameData.getDifficulty();
+        
+        int detectionZone = 200;
+        
         Polygon poly1 = new Polygon();
-        poly1.addPoint((int) (x + Math.cos(radians) * 120), (int) (y + Math.cos(radians) * 120));
-        poly1.addPoint((int) (x + Math.cos(radians + 2 * 3.1415f / 5) * 120), (int) (y + Math.cos(radians + 2 * 3.1415f / 5) * 120));
-        poly1.addPoint((int) (x + Math.cos(radians + 4 * 3.1415f / 5)), (int)(y + Math.sin(radians + 4 * 3.1415f / 5)));
-        poly1.addPoint((int) (x + Math.cos(radians)), (int) (y + Math.cos(radians)));
+        poly1.addPoint((int)(x + Math.cos(radians)), (int) (y + Math.sin(radians)));
+        poly1.addPoint((int) (x + Math.cos(radians) * detectionZone), (int) (y + Math.sin(radians) * detectionZone));
+        poly1.addPoint((int) (x + Math.cos(radians + 2 * 3.1415f / 5) * detectionZone), (int) (y + Math.sin(radians + 2 * 3.1415f / 5) * detectionZone));
         
         
         Polygon poly2 = new Polygon();
-        poly2.addPoint((int) (x + Math.cos(radians) * 120), (int) (y + Math.cos(radians) * 120));
-        poly2.addPoint((int) (x + Math.cos(radians - 2 * 3.1415f / 5) * 120), (int) (y + Math.cos(radians - 2 * 3.1415f / 5) * 120));
-        poly2.addPoint((int) (x + Math.cos(radians + 4 * 3.1415f / 5)), (int)(y + Math.sin(radians + 4 * 3.1415f / 5)));
-        poly2.addPoint((int) (x + Math.cos(radians) * 1), (int) (y + Math.cos(radians) * 1));
+        poly2.addPoint((int)(x + Math.cos(radians)), (int) (y + Math.sin(radians)));
+        poly2.addPoint((int) (x + Math.cos(radians) * detectionZone), (int) (y + Math.sin(radians) * detectionZone));
+        poly2.addPoint((int) (x + Math.cos(radians - 2 * 3.1415f / 5) * detectionZone), (int) (y + Math.sin(radians - 2 * 3.1415f / 5) * detectionZone));
         
         for(Entity astroid : AstroidList){
             int counter = 0;
@@ -118,12 +117,11 @@ public class EnemyAIPart implements EntityPart{
             }
             
             if(isWithin(poly1, poly4)){
-                
-                radians += rotationSpeed * gameData.getDelta();
+                radians -= rotationSpeed * gameData.getDelta();
             }
             
             if(isWithin(poly2, poly4)){
-                radians -= rotationSpeed * gameData.getDelta();
+                radians += rotationSpeed * gameData.getDelta();
             }
             DangerList.clear();
         }

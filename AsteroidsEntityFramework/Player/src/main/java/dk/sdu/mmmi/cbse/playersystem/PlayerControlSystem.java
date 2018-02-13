@@ -61,6 +61,8 @@ public class PlayerControlSystem implements IEntityProcessingService {
 
         entity.addShapeXpoint((float) (x + Math.cos(radians + 4 * 3.1415f / 5) * 8));
         entity.addShapeYpoint((float) (y + Math.sin(radians + 4 * 3.1415f / 5) * 8));
+
+
     }
 
 }

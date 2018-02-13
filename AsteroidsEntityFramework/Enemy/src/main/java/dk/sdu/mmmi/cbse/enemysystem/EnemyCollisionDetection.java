@@ -32,6 +32,10 @@ public class EnemyCollisionDetection implements IPostEntityProcessingService{
             }
             
             lifePart.process(gameData, enemy);
+            System.out.println(lifePart.getLife());
+            if(lifePart.getLife() <= 0){
+                world.removeEntity(enemy);
+            }
         }
         
     }

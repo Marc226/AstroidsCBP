@@ -18,6 +18,7 @@ import java.util.Random;
  */
 public class EnemyControlSystem implements IEntityProcessingService {
 
+    
     @Override
     public void process(GameData gameData, World world) {
 
@@ -30,15 +31,13 @@ public class EnemyControlSystem implements IEntityProcessingService {
             
             SetEnemyDirection(positionPart, movingPart, aiPart, gameData);
             movingPart.setUp(true);
-            
+            shootingPart.shoot(true);
             
             
             movingPart.process(gameData, enemy);
             positionPart.process(gameData, enemy);
             shootingPart.process(gameData, enemy);
             aiPart.process(gameData, enemy);
-            
-            //System.out.println(aiPart.getRadians());
             
             positionPart.setRadians(aiPart.getRadians());
 

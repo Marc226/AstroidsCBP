@@ -22,7 +22,7 @@ public class LifePart implements EntityPart {
     private boolean isHit = false;
     private float expiration = 0;
     private boolean invulnerable = true;
-    private int invulnerableTime = 0;
+    private int invulnerableTime = 2000;
     private boolean player = false;
     private ExecutorService executor = Executors.newFixedThreadPool(1);
 
@@ -34,6 +34,7 @@ public class LifePart implements EntityPart {
     
     public LifePart(int life, boolean player){
         this.player = player;
+        this.life = life;
     }
 
     public int getLife() {
