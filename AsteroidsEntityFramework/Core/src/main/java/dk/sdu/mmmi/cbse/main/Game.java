@@ -80,7 +80,7 @@ public class Game implements ApplicationListener {
         entityPlugins.add(ammoPlugin);
         entityPlugins.add(playerPlugin);
         entityPlugins.add(enemyPlugin);
-        //entityPlugins.add(astroidPlugin);
+        entityPlugins.add(astroidPlugin);
         entityPlugins.add(splitAstroidPlugin);
     }
     

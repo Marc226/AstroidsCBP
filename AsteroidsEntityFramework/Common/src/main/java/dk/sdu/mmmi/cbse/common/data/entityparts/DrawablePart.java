@@ -7,6 +7,7 @@ package dk.sdu.mmmi.cbse.common.data.entityparts;
 
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
+import java.awt.geom.Area;
 
 /**
  *
@@ -14,7 +15,7 @@ import dk.sdu.mmmi.cbse.common.data.GameData;
  */
 public class DrawablePart implements EntityPart{
 
-    int type = 0;
+    Area area  = new Area();
     
     /**
      * integer is based on how the entity should be drawn
@@ -22,17 +23,18 @@ public class DrawablePart implements EntityPart{
      * 
      * @param type 
      */
-    public DrawablePart(int type){
-        this.type = type;
+    public DrawablePart(){
     }
     
-    public int getType(){
-        return type;
+    public void setArea(Area area){
+        this.area = area;
     }
     
-    public void setType(int type){
-        this.type = type;
+    public Area getArea(){
+        return this.area;
     }
+    
+
     
     @Override
     public void process(GameData gameData, Entity entity) {

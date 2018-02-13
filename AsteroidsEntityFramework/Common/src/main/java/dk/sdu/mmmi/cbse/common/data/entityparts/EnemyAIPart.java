@@ -9,6 +9,7 @@ import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import java.awt.Polygon;
+import java.awt.geom.Area;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -25,6 +26,7 @@ public class EnemyAIPart implements EntityPart{
     private float rotationSpeed;
     private World world;
     private List<Entity> AstroidList = Collections.synchronizedList(new ArrayList<>());
+    private List<Entity> DangerList = Collections.synchronizedList(new ArrayList<>());
     
     public EnemyAIPart(World world, float rotationSpeed, float x, float y, float radians){
         this.world = world;
@@ -58,16 +60,90 @@ public class EnemyAIPart implements EntityPart{
         return this.radians;
     }
     
+    public void clearAvoidList(){
+        AstroidList.clear();
+    }
+    
+    public <E extends Entity> void avoidEntity(Class<E> type){
+        AstroidList.addAll(world.getEntities(type));
+    }
     
     @Override
     public void process(GameData gameData, Entity entity) {
-        AstroidList.clear();
-        AstroidList.addAll(world.getEntities(Astroid.class));
+        //System.out.println(x + " : " + y);
         rotationSpeed += gameData.getDifficulty();
-        Polygon poly = new Polygon();
-        poly.addPoint(x, y);
+        Polygon poly1 = new Polygon();
+        poly1.addPoint((int) (x + Math.cos(radians) * 120), (int) (y + Math.cos(radians) * 120));
+        poly1.addPoint((int) (x + Math.cos(radians + 2 * 3.1415f / 5) * 120), (int) (y + Math.cos(radians + 2 * 3.1415f / 5) * 120));
+        poly1.addPoint((int) (x + Math.cos(radians + 4 * 3.1415f / 5)), (int)(y + Math.sin(radians + 4 * 3.1415f / 5)));
+        poly1.addPoint((int) (x + Math.cos(radians)), (int) (y + Math.cos(radians)));
+        
+        
+        Polygon poly2 = new Polygon();
+        poly2.addPoint((int) (x + Math.cos(radians) * 120), (int) (y + Math.cos(radians) * 120));
+        poly2.addPoint((int) (x + Math.cos(radians - 2 * 3.1415f / 5) * 120), (int) (y + Math.cos(radians - 2 * 3.1415f / 5) * 120));
+        poly2.addPoint((int) (x + Math.cos(radians + 4 * 3.1415f / 5)), (int)(y + Math.sin(radians + 4 * 3.1415f / 5)));
+        poly2.addPoint((int) (x + Math.cos(radians) * 1), (int) (y + Math.cos(radians) * 1));
+        
+        for(Entity astroid : AstroidList){
+            int counter = 0;
+            Polygon poly3 = new Polygon();
+            for(Float x : astroid.getShapeX()){
+                poly3.addPoint(x.intValue(), astroid.getShapeY().get(counter).intValue());
+                counter++;
+            }
+            
+            //System.out.println(area.isEmpty() + " : " + areaRight.isEmpty() + " : " + areaLeft.isEmpty());
+            if(isWithin(poly1, poly3) == true || isWithin(poly2, poly3) == true){
+                DangerList.add(astroid);
+            }
+        }
+        if(!DangerList.isEmpty()){
+ 
+            Entity closeEntity = null;
+            float lowestDist = 0;
+            for(Entity astroid : DangerList){
+                if(distanceTo(astroid) <= lowestDist || lowestDist == 0){
+                    lowestDist = distanceTo(astroid);
+                    closeEntity = astroid;
+                }
+            }
+            
+            
+            int counter = 0;
+            Polygon poly4 = new Polygon();
+            for(Float x : closeEntity.getShapeX()){
+                poly4.addPoint(x.intValue(), closeEntity.getShapeY().get(counter).intValue());
+                counter++;
+            }
+            
+            if(isWithin(poly1, poly4)){
+                
+                radians += rotationSpeed * gameData.getDelta();
+            }
+            
+            if(isWithin(poly2, poly4)){
+                radians -= rotationSpeed * gameData.getDelta();
+            }
+            DangerList.clear();
+        }
+        
     }
     
-    public Area 
+    public boolean isWithin(Polygon polyOne, Polygon polyTwo){
+        boolean collision = false;
+        Area areaOne = new Area(polyOne);
+        areaOne.intersect(new Area(polyTwo));
+        if(!areaOne.isEmpty()){
+            collision = true;
+        }
+        return collision;
+    }
+    
+    public float distanceTo(Entity entityTwo){
+        return (float)Math.sqrt((entityTwo.getShapeX().get(0)-x)*(entityTwo.getShapeX().get(0)-x) + (entityTwo.getShapeY().get(0)-y)*(entityTwo.getShapeY().get(0)-y));
+    }
+    
+    
     
 }

@@ -5,6 +5,7 @@ import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.data.entityparts.CollisionPart;
+import dk.sdu.mmmi.cbse.common.data.entityparts.EnemyAIPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
@@ -22,11 +23,11 @@ public class EnemyPlugin implements IGamePluginService {
     public void start(GameData gameData, World world) {
         
         // Add entities to the world
-        enemy = createEnemyShip(gameData);
+        enemy = createEnemyShip(gameData, world);
         world.addEntity(enemy);
     }
 
-    private Entity createEnemyShip(GameData gameData) {
+    private Entity createEnemyShip(GameData gameData, World world) {
 
         float deacceleration = 10;
         float acceleration = 200;
@@ -46,6 +47,7 @@ public class EnemyPlugin implements IGamePluginService {
         enemyShip.add(new PositionPart(x, y, radians));
         enemyShip.add(new CollisionPart());
         enemyShip.add(new LifePart(life, true));
+        enemyShip.add(new EnemyAIPart(world, rotationSpeed, x, y, radians));
         
         return enemyShip;
     }
@@ -58,7 +60,7 @@ public class EnemyPlugin implements IGamePluginService {
 
     @Override
     public void create(GameData gameData, World world, Entity entity) {
-        enemy = createEnemyShip(gameData);
+        enemy = createEnemyShip(gameData, world);
         world.addEntity(enemy);
     }
 

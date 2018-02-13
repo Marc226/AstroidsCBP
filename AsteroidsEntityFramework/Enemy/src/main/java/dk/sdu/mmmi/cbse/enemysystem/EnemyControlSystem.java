@@ -1,15 +1,15 @@
 package dk.sdu.mmmi.cbse.enemysystem;
 
+import dk.sdu.mmmi.cbse.astroid.Astroid;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
+import dk.sdu.mmmi.cbse.common.data.entityparts.EnemyAIPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.ShootingPart;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
-import static java.lang.Math.cos;
-import static java.lang.Math.sin;
-import static java.lang.Math.sqrt;
+import dk.sdu.mmmi.cbse.splitobject.SplitAstroid;
 import java.util.Random;
 
 /**
@@ -25,14 +25,22 @@ public class EnemyControlSystem implements IEntityProcessingService {
             PositionPart positionPart = enemy.getPart(PositionPart.class);
             MovingPart movingPart = enemy.getPart(MovingPart.class);
             ShootingPart shootingPart = enemy.getPart(ShootingPart.class);
-
-            SetEnemyDirection(movingPart);
+            EnemyAIPart aiPart = enemy.getPart(EnemyAIPart.class);
+            
+            
+            SetEnemyDirection(positionPart, movingPart, aiPart, gameData);
             movingPart.setUp(true);
+            
             
             
             movingPart.process(gameData, enemy);
             positionPart.process(gameData, enemy);
             shootingPart.process(gameData, enemy);
+            aiPart.process(gameData, enemy);
+            
+            //System.out.println(aiPart.getRadians());
+            
+            positionPart.setRadians(aiPart.getRadians());
 
             updateShape(enemy);
         }
@@ -59,25 +67,31 @@ public class EnemyControlSystem implements IEntityProcessingService {
 
     }
     
-    public void SetEnemyDirection(MovingPart part){
-        Random random = new Random();
-        int Direction = random.nextInt(2);
+    public void SetEnemyDirection(PositionPart part, MovingPart move, EnemyAIPart aiPart, GameData data){
+        aiPart.clearAvoidList();
+        aiPart.setX(part.getX());
+        aiPart.setY(part.getY());
+        aiPart.avoidEntity(Astroid.class);
+        aiPart.avoidEntity(SplitAstroid.class);
         
-        
-        
-        switch(Direction){
-            case 0:
-                part.setRight(false);
-                part.setLeft(true);
-                break;
-            case 1:
-                part.setLeft(false);
-                part.setRight(true);
-                break;
-            default:
-                part.setRight(false);
-                part.setLeft(false);
-        }
+//        Random random = new Random();
+//        int Direction = random.nextInt(2);
+//        
+//        
+//        
+//        switch(Direction){
+//            case 0:
+//                move.setRight(false);
+//                move.setLeft(true);
+//                break;
+//            case 1:
+//                move.setLeft(false);
+//                move.setRight(true);
+//                break;
+//            default:
+//                move.setRight(false);
+//                move.setLeft(false);
+//        }
     }
 
 }
