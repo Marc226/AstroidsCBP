@@ -43,7 +43,7 @@ public class AstroidPlugin implements IGamePluginService {
                 astroidList.add(astroid);
                 world.addEntity(astroid);
                 try {
-                    Thread.sleep(random.nextInt(5000));
+                    Thread.sleep(random.nextInt(10000));
                 } catch (InterruptedException ex) {
                     Logger.getLogger(AstroidPlugin.class.getName()).log(Level.SEVERE, null, ex);
                 }

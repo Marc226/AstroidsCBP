@@ -25,14 +25,13 @@ public class EnemyCollisionDetection implements IPostEntityProcessingService{
             LifePart lifePart = enemy.getPart(LifePart.class);
             
             for(Entity secondEntity : world.getEntities()){
-                if(secondEntity.containPart(CollisionPart.class) && !secondEntity.getClass().equals(Enemy.class)){
+                if(secondEntity.containPart(CollisionPart.class) && !secondEntity.getClass().equals(Enemy.class) && !secondEntity.getSource().equals(enemy)){
                     collisionPart.setEntityTwo(secondEntity);
                     collisionPart.process(gameData, enemy);
                 }
             }
             
             lifePart.process(gameData, enemy);
-            System.out.println(lifePart.getLife());
             if(lifePart.getLife() <= 0){
                 world.removeEntity(enemy);
             }

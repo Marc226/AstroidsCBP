@@ -32,9 +32,10 @@ public class LifePart implements EntityPart {
         this.invulnerableTime = invulnerableTime;
     }
     
-    public LifePart(int life, boolean player){
+    public LifePart(int life, boolean player, int invulnerableTime){
         this.player = player;
         this.life = life;
+        this.invulnerableTime = invulnerableTime;
     }
 
     public int getLife() {

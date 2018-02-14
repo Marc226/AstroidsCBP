@@ -29,7 +29,6 @@ public class AstroidCollisionDetection implements IPostEntityProcessingService{
             
             for(Entity secondEntity : world.getEntities()){
                 if(secondEntity.containPart(CollisionPart.class) && !astroid.getID().equals(secondEntity.getID())){
-                    System.out.println(astroid.getClass() + " collided with: " + secondEntity.getClass());
                     collisionPart.setEntityTwo(secondEntity);
                     collisionPart.process(gameData, astroid);
                 }

@@ -8,6 +8,8 @@ package dk.sdu.mmmi.cbse.common.data.entityparts;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.events.ShootEvent;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -32,6 +34,7 @@ public class ShootingPart implements EntityPart{
     public void shoot(boolean key){
         this.shoot = key;
     }
+
     
     public void changeCooldown(int cooldown){
         this.cooldownSeconds = cooldown;
