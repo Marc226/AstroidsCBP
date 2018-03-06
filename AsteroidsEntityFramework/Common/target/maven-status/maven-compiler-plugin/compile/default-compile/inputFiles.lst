@@ -13,6 +13,7 @@ C:\Users\Marcg\Documents\GitHub\AstroidsCBP\AsteroidsEntityFramework\Common\src\
 C:\Users\Marcg\Documents\GitHub\AstroidsCBP\AsteroidsEntityFramework\Common\src\main\java\dk\sdu\mmmi\cbse\common\services\IGamePluginService.java
 C:\Users\Marcg\Documents\GitHub\AstroidsCBP\AsteroidsEntityFramework\Common\src\main\java\dk\sdu\mmmi\cbse\common\data\entityparts\DrawablePart.java
 C:\Users\Marcg\Documents\GitHub\AstroidsCBP\AsteroidsEntityFramework\Common\src\main\java\dk\sdu\mmmi\cbse\common\data\GameData.java
+C:\Users\Marcg\Documents\GitHub\AstroidsCBP\AsteroidsEntityFramework\Common\src\main\java\dk\sdu\mmmi\cbse\common\util\SPILocator.java
 C:\Users\Marcg\Documents\GitHub\AstroidsCBP\AsteroidsEntityFramework\Common\src\main\java\dk\sdu\mmmi\cbse\common\services\IEventProcessingService.java
 C:\Users\Marcg\Documents\GitHub\AstroidsCBP\AsteroidsEntityFramework\Common\src\main\java\dk\sdu\mmmi\cbse\common\data\entityparts\EnemyAIPart.java
 C:\Users\Marcg\Documents\GitHub\AstroidsCBP\AsteroidsEntityFramework\Common\src\main\java\dk\sdu\mmmi\cbse\common\events\SplitEvent.java

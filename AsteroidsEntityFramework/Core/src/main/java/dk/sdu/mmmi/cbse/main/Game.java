@@ -18,6 +18,7 @@ import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
+import dk.sdu.mmmi.cbse.common.util.SPILocator;
 import dk.sdu.mmmi.cbse.enemysystem.EnemyCollisionDetection;
 import dk.sdu.mmmi.cbse.managers.GameInputProcessor;
 import dk.sdu.mmmi.cbse.playersystem.PlayerPlugin;
@@ -29,6 +30,7 @@ import dk.sdu.mmmi.cbse.splitobject.SplitAstroidCollisionDetection;
 import dk.sdu.mmmi.cbse.splitobject.SplitAstroidControlSystem;
 import dk.sdu.mmmi.cbse.splitobject.SplitAstroidPlugin;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -59,58 +61,14 @@ public class Game implements ApplicationListener {
         Gdx.input.setInputProcessor(
                 new GameInputProcessor(gameData)
         );
-        
-        loadPlugins();
-        loadProcesses();
-        loadPostProcesses();
 
         // Lookup all Game Plugins using ServiceLoader
-        for (IGamePluginService iGamePlugin : entityPlugins) {
+        for (IGamePluginService iGamePlugin : getPluginServices()) {
             iGamePlugin.start(gameData, world);
         }
     }
     
-    public void loadPlugins(){
-        IGamePluginService enemyPlugin = new EnemyPlugin();
-        IGamePluginService playerPlugin = new PlayerPlugin();
-        IGamePluginService astroidPlugin = new AstroidPlugin();
-        IGamePluginService splitAstroidPlugin = new SplitAstroidPlugin();
-        IGamePluginService ammoPlugin = new AmmoPlugin();
-        
-        entityPlugins.add(ammoPlugin);
-        entityPlugins.add(playerPlugin);
-        entityPlugins.add(enemyPlugin);
-        entityPlugins.add(astroidPlugin);
-        entityPlugins.add(splitAstroidPlugin);
-    }
-    
-    public void loadProcesses(){
-        IEntityProcessingService playerProcess = new PlayerControlSystem();
-        IEntityProcessingService enemyProcess = new EnemyControlSystem();
-        IEntityProcessingService astroidProcess = new AstroidControlSystem();
-        IEntityProcessingService splitAstroidProcess = new SplitAstroidControlSystem();
-        IEntityProcessingService ammoProcess = new AmmoControlSystem();
 
-        entityProcessors.add(ammoProcess);
-        entityProcessors.add(playerProcess);
-        entityProcessors.add(enemyProcess);
-        entityProcessors.add(astroidProcess);
-        entityProcessors.add(splitAstroidProcess);
-    }
-    
-    public void loadPostProcesses(){
-        IPostEntityProcessingService playerPostProcess = new PlayerCollisionDetection();
-        IPostEntityProcessingService enemyPostProcess = new EnemyCollisionDetection();
-        IPostEntityProcessingService astroidPostProcess = new AstroidCollisionDetection();
-        IPostEntityProcessingService splitAstroidPostProcess = new SplitAstroidCollisionDetection();
-        IPostEntityProcessingService ammoPostProcess = new AmmoCollisionDetection();
-        
-        entityPostProcessors.add(ammoPostProcess);
-        entityPostProcessors.add(playerPostProcess);
-        entityPostProcessors.add(enemyPostProcess);
-        entityPostProcessors.add(astroidPostProcess);
-        entityPostProcessors.add(splitAstroidPostProcess);
-    }
 
     @Override
     public void render() {
@@ -133,11 +91,11 @@ public class Game implements ApplicationListener {
             pause();
         } else {   
             // Update
-            for (IEntityProcessingService entityProcessorService : entityProcessors) {
+            for (IEntityProcessingService entityProcessorService : getEntityProcessingServices()) {
                entityProcessorService.process(gameData, world);
             }
 
-            for(IPostEntityProcessingService entityPostProcessingService: entityPostProcessors){
+            for(IPostEntityProcessingService entityPostProcessingService: getEntityPostProcessingServices()){
                 entityPostProcessingService.process(gameData, world);
             }
         }
@@ -179,5 +137,17 @@ public class Game implements ApplicationListener {
 
     @Override
     public void dispose() {
+    }
+    
+    private Collection<? extends IGamePluginService> getPluginServices() {
+        return SPILocator.locateAll(IGamePluginService.class);
+    }
+
+    private Collection<? extends IEntityProcessingService> getEntityProcessingServices() {
+        return SPILocator.locateAll(IEntityProcessingService.class);
+    }
+    
+    private Collection<? extends IPostEntityProcessingService> getEntityPostProcessingServices() {
+        return SPILocator.locateAll(IPostEntityProcessingService.class);
     }
 }
