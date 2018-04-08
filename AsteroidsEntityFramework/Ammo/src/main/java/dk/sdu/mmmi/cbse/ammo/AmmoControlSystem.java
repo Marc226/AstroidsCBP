@@ -1,12 +1,11 @@
 package dk.sdu.mmmi.cbse.ammo;
 
-import dk.sdu.mmmi.cbse.common.data.Entity;
-import dk.sdu.mmmi.cbse.common.data.GameData;
-import dk.sdu.mmmi.cbse.common.data.World;
-import dk.sdu.mmmi.cbse.common.data.entityparts.CollisionPart;
-import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
-import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
-import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
+import dk.sdu.mmmi.cbse.commonAstroid.data.Entity;
+import dk.sdu.mmmi.cbse.commonAstroid.data.GameData;
+import dk.sdu.mmmi.cbse.commonAstroid.data.World;
+import dk.sdu.mmmi.cbse.commonAstroid.entityparts.MovingPart;
+import dk.sdu.mmmi.cbse.commonAstroid.entityparts.PositionPart;
+import dk.sdu.mmmi.cbse.commonAstroid.services.IEntityProcessingService;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 import static java.lang.Math.sqrt;

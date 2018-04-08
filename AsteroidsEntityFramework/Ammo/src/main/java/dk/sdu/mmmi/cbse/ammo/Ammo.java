@@ -5,7 +5,7 @@
  */
 package dk.sdu.mmmi.cbse.ammo;
 
-import dk.sdu.mmmi.cbse.common.data.Entity;
+import dk.sdu.mmmi.cbse.commonAstroid.data.Entity;
 
 /**
  *

@@ -1,16 +1,14 @@
 package dk.sdu.mmmi.cbse.enemysystem;
 
-import dk.sdu.mmmi.cbse.astroid.Astroid;
-import dk.sdu.mmmi.cbse.common.data.Entity;
-import dk.sdu.mmmi.cbse.common.data.GameData;
-import dk.sdu.mmmi.cbse.common.data.World;
-import dk.sdu.mmmi.cbse.common.data.entityparts.EnemyAIPart;
-import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
-import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
-import dk.sdu.mmmi.cbse.common.data.entityparts.ShootingPart;
-import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
-import dk.sdu.mmmi.cbse.splitobject.SplitAstroid;
-import java.util.Random;
+
+import dk.sdu.mmmi.cbse.commonAstroid.data.Entity;
+import dk.sdu.mmmi.cbse.commonAstroid.data.GameData;
+import dk.sdu.mmmi.cbse.commonAstroid.data.World;
+import dk.sdu.mmmi.cbse.commonAstroid.entityparts.EnemyAIPart;
+import dk.sdu.mmmi.cbse.commonAstroid.entityparts.MovingPart;
+import dk.sdu.mmmi.cbse.commonAstroid.entityparts.PositionPart;
+import dk.sdu.mmmi.cbse.commonAstroid.entityparts.ShootingPart;
+import dk.sdu.mmmi.cbse.commonAstroid.services.IEntityProcessingService;
 
 /**
  *
@@ -67,30 +65,8 @@ public class EnemyControlSystem implements IEntityProcessingService {
     }
     
     public void SetEnemyDirection(PositionPart part, MovingPart move, EnemyAIPart aiPart, GameData data){
-        aiPart.clearAvoidList();
         aiPart.setX(part.getX());
         aiPart.setY(part.getY());
-        aiPart.avoidEntity(Astroid.class);
-        aiPart.avoidEntity(SplitAstroid.class);
-        
-//        Random random = new Random();
-//        int Direction = random.nextInt(2);
-//        
-//        
-//        
-//        switch(Direction){
-//            case 0:
-//                move.setRight(false);
-//                move.setLeft(true);
-//                break;
-//            case 1:
-//                move.setLeft(false);
-//                move.setRight(true);
-//                break;
-//            default:
-//                move.setRight(false);
-//                move.setLeft(false);
-//        }
     }
 
 }

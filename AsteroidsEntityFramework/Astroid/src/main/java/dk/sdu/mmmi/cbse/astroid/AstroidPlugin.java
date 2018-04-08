@@ -1,25 +1,26 @@
 package dk.sdu.mmmi.cbse.astroid;
 
 
-import dk.sdu.mmmi.cbse.common.data.Entity;
-import dk.sdu.mmmi.cbse.common.data.GameData;
-import dk.sdu.mmmi.cbse.common.data.World;
-import dk.sdu.mmmi.cbse.common.data.entityparts.CollisionPart;
-import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
-import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
-import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
-import dk.sdu.mmmi.cbse.common.data.entityparts.SplitAblePart;
-import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
-import dk.sdu.mmmi.cbse.playersystem.Player;
+import dk.sdu.mmmi.cbse.commonAstroid.data.Entity;
+import dk.sdu.mmmi.cbse.commonAstroid.data.GameData;
+import dk.sdu.mmmi.cbse.commonAstroid.data.World;
+import dk.sdu.mmmi.cbse.commonAstroid.entityparts.CollisionPart;
+import dk.sdu.mmmi.cbse.commonAstroid.entityparts.LifePart;
+import dk.sdu.mmmi.cbse.commonAstroid.entityparts.MovingPart;
+import dk.sdu.mmmi.cbse.commonAstroid.entityparts.PositionPart;
+import dk.sdu.mmmi.cbse.commonAstroid.entityparts.SplitAblePart;
+import dk.sdu.mmmi.cbse.commonAstroid.services.IGamePluginService;
+import dk.sdu.mmmi.cbse.commonAstroid.util.SPILocator;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import java.util.Vector;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import dk.sdu.mmmi.cbse.commonAstroid.services.IPlayerPositionService;
 
 public class AstroidPlugin implements IGamePluginService {
 
@@ -69,6 +70,7 @@ public class AstroidPlugin implements IGamePluginService {
         float radians = setAstroidDirection(world, position[0], position[1]);
         
         Entity astroid = new Astroid();
+        astroid.toggleAiAvoid(true);
         astroid.setRadius(radius);
         astroid.setColor(color);
         astroid.add(new MovingPart(deacceleration, acceleration, maxSpeed, rotationSpeed));
@@ -100,10 +102,13 @@ public class AstroidPlugin implements IGamePluginService {
     
     public float setAstroidDirection(World world, float x, float y){
         float radians = 0;
-        for(Entity entity : world.getEntities(Player.class)){
-                PositionPart Player = entity.getPart(PositionPart.class);
-                radians = (float)Math.atan2(Player.getX() - x, Player.getY() - y);
-            }
+        IPlayerPositionService playerPosition = getPositionService();
+        if(playerPosition == null){
+            radians = random.nextInt(4);
+        } else {
+            radians = (float)Math.atan2(playerPosition.getPlayerX() - x, playerPosition.getPlayerX() - y);   
+        }
+            
         return radians;
     }
     
@@ -141,6 +146,15 @@ public class AstroidPlugin implements IGamePluginService {
         astroid = createAstroid(gameData, world);
         astroidList.add(astroid);
         world.addEntity(astroid);
+    }
+    
+    private IPlayerPositionService getPositionService() {
+        IPlayerPositionService position = null;
+        Collection<? extends IPlayerPositionService> list = SPILocator.locateAll(IPlayerPositionService.class);
+        for(IPlayerPositionService pos : list){
+            position = pos;
+        }
+        return position;
     }
 
 }

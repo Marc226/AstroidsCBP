@@ -1,16 +1,18 @@
 package dk.sdu.mmmi.cbse.playersystem;
 
-import dk.sdu.mmmi.cbse.common.data.Entity;
-import dk.sdu.mmmi.cbse.common.data.GameData;
-import static dk.sdu.mmmi.cbse.common.data.GameKeys.LEFT;
-import static dk.sdu.mmmi.cbse.common.data.GameKeys.RIGHT;
-import static dk.sdu.mmmi.cbse.common.data.GameKeys.SPACE;
-import static dk.sdu.mmmi.cbse.common.data.GameKeys.UP;
-import dk.sdu.mmmi.cbse.common.data.World;
-import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
-import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
-import dk.sdu.mmmi.cbse.common.data.entityparts.ShootingPart;
-import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
+import dk.sdu.mmmi.cbse.commonAstroid.data.Entity;
+import dk.sdu.mmmi.cbse.commonAstroid.data.GameData;
+import static dk.sdu.mmmi.cbse.commonAstroid.data.GameKeys.LEFT;
+import static dk.sdu.mmmi.cbse.commonAstroid.data.GameKeys.RIGHT;
+import static dk.sdu.mmmi.cbse.commonAstroid.data.GameKeys.SPACE;
+import static dk.sdu.mmmi.cbse.commonAstroid.data.GameKeys.UP;
+import dk.sdu.mmmi.cbse.commonAstroid.data.World;
+import dk.sdu.mmmi.cbse.commonAstroid.entityparts.MovingPart;
+import dk.sdu.mmmi.cbse.commonAstroid.entityparts.PositionPart;
+import dk.sdu.mmmi.cbse.commonAstroid.entityparts.ShootingPart;
+import dk.sdu.mmmi.cbse.commonAstroid.services.IEntityProcessingService;
+
+
 
 /**
  *
