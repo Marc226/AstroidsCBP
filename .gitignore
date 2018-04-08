@@ -25,3 +25,7 @@ hs_err_pid*
 /AsteroidsEntityFramework/SplitObject/target/
 /AsteroidsEntityFramework/Ammo/target/
 /AsteroidsEntityFramework/CommonAstroid/target/
+/AsteroidsNetbeansModules/branding/target/
+/AsteroidsNetbeansModules/Common/target/
+/AsteroidsNetbeansModules/SilentUpdate/target/
+/AsteroidsNetbeansModules/application/target/
