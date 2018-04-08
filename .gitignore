@@ -29,3 +29,6 @@ hs_err_pid*
 /AsteroidsNetbeansModules/Common/target/
 /AsteroidsNetbeansModules/SilentUpdate/target/
 /AsteroidsNetbeansModules/application/target/
+/AsteroidsNetbeansModules/CommonEnemy/target/
+/AsteroidsNetbeansModules/CommonAsteroids/target/
+/AsteroidsNetbeansModules/Core/target/
