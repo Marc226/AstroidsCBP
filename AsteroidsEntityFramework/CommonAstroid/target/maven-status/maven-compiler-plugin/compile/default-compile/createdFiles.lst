@@ -18,6 +18,5 @@ dk\sdu\mmmi\cbse\commonAstroid\entityparts\EnemyAIPart.class
 dk\sdu\mmmi\cbse\commonAstroid\entityparts\EntityPart.class
 dk\sdu\mmmi\cbse\commonAstroid\entityparts\PositionPart.class
 dk\sdu\mmmi\cbse\commonAstroid\entityparts\SplitAblePart.class
-dk\sdu\mmmi\cbse\commonAstroid\services\GenerateObjectService.class
 dk\sdu\mmmi\cbse\commonAstroid\services\IPostEntityProcessingService.class
 dk\sdu\mmmi\cbse\commonAstroid\services\IEventProcessingService.class

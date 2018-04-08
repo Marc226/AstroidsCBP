@@ -24,9 +24,6 @@ public class Game implements ApplicationListener {
 
     private final GameData gameData = new GameData();
     private ShapeRenderer sr;
-    private List<IEntityProcessingService> entityProcessors = new ArrayList<>();
-    private List<IGamePluginService> entityPlugins = new ArrayList<>();
-    private List<IPostEntityProcessingService> entityPostProcessors = new ArrayList<>();
     private World world = new World();
 
     @Override

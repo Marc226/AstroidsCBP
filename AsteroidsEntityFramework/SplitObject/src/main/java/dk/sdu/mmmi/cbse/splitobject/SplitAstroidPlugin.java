@@ -62,6 +62,7 @@ public class SplitAstroidPlugin implements IGamePluginService {
         float radians = setAstroidDirection(gameData, positionPart.getX(), positionPart.getY());
         
         Entity splitObject = new SplitAstroid();
+        splitObject.toggleAiAvoid(true);
         splitObject.setColor(color);
         splitObject.add(new MovingPart(deacceleration, acceleration, maxSpeed, rotationSpeed));
         splitObject.add(new PositionPart(positionPart.getX(), positionPart.getY(), radians));
