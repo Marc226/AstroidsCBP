@@ -5,26 +5,31 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import dk.sdu.mmmi.cbse.commonAstroid.data.Entity;
-import dk.sdu.mmmi.cbse.commonAstroid.data.GameData;
-import static dk.sdu.mmmi.cbse.commonAstroid.data.GameKeys.SHIFT;
-import dk.sdu.mmmi.cbse.commonAstroid.data.World;
-import dk.sdu.mmmi.cbse.commonAstroid.services.IEntityProcessingService;
-import dk.sdu.mmmi.cbse.commonAstroid.services.IGamePluginService;
-import dk.sdu.mmmi.cbse.commonAstroid.services.IPostEntityProcessingService;
-import dk.sdu.mmmi.cbse.commonAstroid.util.SPILocator;
-import dk.sdu.mmmi.cbse.managers.GameInputProcessor;
-import java.util.ArrayList;
+import dk.sdu.mmmi.cbse.commonnbmodule.data.Entity;
+import dk.sdu.mmmi.cbse.commonnbmodule.data.GameData;
+import static dk.sdu.mmmi.cbse.commonnbmodule.data.GameKeys.SHIFT;
+import dk.sdu.mmmi.cbse.commonnbmodule.data.World;
+import dk.sdu.mmmi.cbse.commonnbmodule.services.IEntityProcessingService;
+import dk.sdu.mmmi.cbse.commonnbmodule.services.IGamePluginService;
+import dk.sdu.mmmi.cbse.commonnbmodule.services.IPostEntityProcessingService;
+import dk.sdu.mmmi.cbse.corenbmodule.managers.GameInputProcessor;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import org.openide.util.Lookup;
+import org.openide.util.LookupEvent;
+import org.openide.util.LookupListener;
 
 public class Game implements ApplicationListener {
 
-    private static OrthographicCamera cam;
 
-    private final GameData gameData = new GameData();
+    private static OrthographicCamera cam;
     private ShapeRenderer sr;
+    private final Lookup lookup = Lookup.getDefault();
+    private final GameData gameData = new GameData();
     private World world = new World();
+    private List<IGamePluginService> gamePlugins = new CopyOnWriteArrayList<>();
+    private Lookup.Result<IGamePluginService> result;
 
     @Override
     public void create() {
@@ -38,13 +43,17 @@ public class Game implements ApplicationListener {
 
         sr = new ShapeRenderer();
         
+        result = lookup.lookupResult(IGamePluginService.class);
+        result.addLookupListener(lookupListener);
+        result.allItems();
+        
         Gdx.input.setInputProcessor(
                 new GameInputProcessor(gameData)
         );
 
-        // Lookup all Game Plugins using ServiceLoader
-        for (IGamePluginService iGamePlugin : getPluginServices()) {
-            iGamePlugin.start(gameData, world);
+        for (IGamePluginService plugin : result.allInstances()) {
+            plugin.start(gameData, world);
+            gamePlugins.add(plugin);
         }
     }
     
@@ -75,7 +84,7 @@ public class Game implements ApplicationListener {
                entityProcessorService.process(gameData, world);
             }
 
-            for(IPostEntityProcessingService entityPostProcessingService: getEntityPostProcessingServices()){
+            for(IPostEntityProcessingService entityPostProcessingService: getPostEntityProcessingServices()){
                 entityPostProcessingService.process(gameData, world);
             }
         }
@@ -119,15 +128,36 @@ public class Game implements ApplicationListener {
     public void dispose() {
     }
     
-    private Collection<? extends IGamePluginService> getPluginServices() {
-        return SPILocator.locateAll(IGamePluginService.class);
+    private Collection<? extends IEntityProcessingService> getEntityProcessingServices() {
+        return lookup.lookupAll(IEntityProcessingService.class);
     }
 
-    private Collection<? extends IEntityProcessingService> getEntityProcessingServices() {
-        return SPILocator.locateAll(IEntityProcessingService.class);
+    private Collection<? extends IPostEntityProcessingService> getPostEntityProcessingServices() {
+        return lookup.lookupAll(IPostEntityProcessingService.class);
     }
-    
-    private Collection<? extends IPostEntityProcessingService> getEntityPostProcessingServices() {
-        return SPILocator.locateAll(IPostEntityProcessingService.class);
-    }
+
+    private final LookupListener lookupListener = new LookupListener() {
+        @Override
+        public void resultChanged(LookupEvent le) {
+
+            Collection<? extends IGamePluginService> updated = result.allInstances();
+
+            for (IGamePluginService us : updated) {
+                // Newly installed modules
+                if (!gamePlugins.contains(us)) {
+                    us.start(gameData, world);
+                    gamePlugins.add(us);
+                }
+            }
+
+            // Stop and remove module
+            for (IGamePluginService gs : gamePlugins) {
+                if (!updated.contains(gs)) {
+                    gs.stop(gameData, world);
+                    gamePlugins.remove(gs);
+                }
+            }
+        }
+
+    };
 }

@@ -16,6 +16,12 @@
                 <extensions>true</extensions>
                 <configuration>
                     <useOSGiDependencies>true</useOSGiDependencies>
+                    <publicPackages>
+                        <publicPackage>dk.sdu.mmmi.cbse.commonnbmodule.data</publicPackage>
+                        <publicPackage>dk.sdu.mmmi.cbse.commonnbmodule.entityparts</publicPackage>
+                        <publicPackage>dk.sdu.mmmi.cbse.commonnbmodule.events</publicPackage>
+                        <publicPackage>dk.sdu.mmmi.cbse.commonnbmodule.services</publicPackage>
+                    </publicPackages>
                 </configuration>
             </plugin>
             <plugin>

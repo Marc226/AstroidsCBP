@@ -34,3 +34,11 @@ hs_err_pid*
 /AsteroidsNetbeansModules/Core/target/
 /AstroidNetbeansMod/AstroidNetbeansMod/branding/target/
 /AstroidNetbeansMod/AstroidNetbeansMod/application/target/
+/AstroidNetbeansMod/AstroidNetbeansMod/CommonNBModule/target/
+/AstroidNetbeansMod/AstroidNetbeansMod/CoreNBModule/CoreNBModule/target/
+/AstroidNetbeansMod/AstroidNetbeansMod/SilentNBUpdater/target/
+/AstroidNetbeansMod/AstroidNetbeansMod/PlayerNBModule/target/
+/AstroidNetbeansMod/AstroidNetbeansMod/EnemyNBModule/target/
+/AstroidNetbeansMod/AstroidNetbeansMod/SplitObjectNBModule/target/
+/AstroidNetbeansMod/AstroidNetbeansMod/AstroidNBModule/target/
+/AstroidNetbeansMod/AstroidNetbeansMod/AmmoNBModule/target/

@@ -43,8 +43,8 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>2.5.1</version>
                     <configuration>
-                        <source>1.7</source>
-                        <target>1.7</target>
+                        <source>1.8</source>
+                        <target>1.8</target>
                     </configuration>
                 </plugin>
             <plugin>
@@ -61,6 +61,12 @@
         <module>application</module>
         <module>CoreNBModule/CoreNBModule</module>
         <module>CommonNBModule</module>
+        <module>SilentNBUpdater</module>
+        <module>PlayerNBModule</module>
+        <module>EnemyNBModule</module>
+        <module>AstroidNBModule</module>
+        <module>AmmoNBModule</module>
+        <module>SplitObjectNBModule</module>
     </modules>
 
     <properties>
