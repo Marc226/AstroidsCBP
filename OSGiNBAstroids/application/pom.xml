@@ -19,12 +19,12 @@
     </properties>
 
     <dependencies>
-        <dependency>
+        <!--<dependency>
             <groupId>org.netbeans.cluster</groupId>
             <artifactId>platform</artifactId>
             <version>${netbeans.version}</version>
             <type>pom</type>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>OSGiNBAstroids-branding</artifactId>
@@ -45,6 +45,11 @@
             <scope>test</scope>
         </dependency>
         -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>OSGiExtender</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

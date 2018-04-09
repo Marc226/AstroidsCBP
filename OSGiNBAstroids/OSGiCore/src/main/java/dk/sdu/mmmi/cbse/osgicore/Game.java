@@ -10,14 +10,13 @@ import dk.sdu.mmmi.cbse.osgicommon.data.GameData;
 import static dk.sdu.mmmi.cbse.osgicommon.data.GameKeys.SHIFT;
 import dk.sdu.mmmi.cbse.osgicommon.data.World;
 import dk.sdu.mmmi.cbse.osgicommon.services.IEntityProcessingService;
-import dk.sdu.mmmi.cbse.osgicommon.services.IGamePluginService;
 import dk.sdu.mmmi.cbse.osgicommon.services.IPostEntityProcessingService;
 import dk.sdu.mmmi.cbse.osgicore.managers.GameInputProcessor;
-import java.lang.invoke.MethodHandles.Lookup;
+import dk.sdu.mmmi.cbse.osgicore.managers.PluginTracker;
 import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceReference;
 
@@ -25,7 +24,9 @@ public class Game implements ApplicationListener {
 
 
     private static OrthographicCamera cam;
+    private BundleContext context = FrameworkUtil.getBundle(this.getClass()).getBundleContext();
     private ShapeRenderer sr;
+    private PluginTracker pluginTracker;
     private final GameData gameData = new GameData();
     private World world = new World();
 
@@ -38,6 +39,8 @@ public class Game implements ApplicationListener {
         cam = new OrthographicCamera(gameData.getDisplayWidth(), gameData.getDisplayHeight());
         cam.translate(gameData.getDisplayWidth() / 2, gameData.getDisplayHeight() / 2);
         cam.update();
+        
+        pluginTracker.startPluginTracker();
 
         sr = new ShapeRenderer();
         
@@ -45,10 +48,7 @@ public class Game implements ApplicationListener {
                 new GameInputProcessor(gameData)
         );
 
-        for (IGamePluginService plugin : result.allInstances()) {
-            plugin.start(gameData, world);
-            gamePlugins.add(plugin);
-        }
+        
     }
     
 
@@ -73,16 +73,21 @@ public class Game implements ApplicationListener {
         if(gameData.getKeys().isDown(SHIFT) == true){
             pause();
         } else {   
-            // Update
-        }
-        
-        IEntityProcessingService process;
-        if(processReference() != null){
-            for(ServiceReference<IEntityProcessingService> reference : processReference()){
-                process = (IEntityProcessingService) context.getService(reference);
-                process.process(gameData, world);
+            IEntityProcessingService process;
+            if(processReference() != null){
+                for(ServiceReference<IEntityProcessingService> reference : processReference()){
+                    process = (IEntityProcessingService) context.getService(reference);
+                    process.process(gameData, world);
+                }
             }
-        }
+            
+            IPostEntityProcessingService postProces;
+            if(processReference() != null){
+                for(ServiceReference<IPostEntityProcessingService> reference : postProcessReference()){
+                    postProces = (IPostEntityProcessingService) context.getService(reference);
+                    postProces.process(gameData, world);
+                }
+            }
         }
     }
 
@@ -118,16 +123,28 @@ public class Game implements ApplicationListener {
 
     @Override
     public void resume() {
+
     }
 
     @Override
     public void dispose() {
+        pluginTracker.stopPluginTracker();
     }
     
     public Collection<ServiceReference<IEntityProcessingService>> processReference() {
         Collection<ServiceReference<IEntityProcessingService>> collection = null;
         try {
             collection = this.context.getServiceReferences(IEntityProcessingService.class, null);
+        } catch (InvalidSyntaxException ex) {
+            System.out.println("Service not availlable!");
+        }
+        return collection;
+    }
+    
+    public Collection<ServiceReference<IPostEntityProcessingService>> postProcessReference() {
+        Collection<ServiceReference<IPostEntityProcessingService>> collection = null;
+        try {
+            collection = this.context.getServiceReferences(IPostEntityProcessingService.class, null);
         } catch (InvalidSyntaxException ex) {
             System.out.println("Service not availlable!");
         }

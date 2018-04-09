@@ -72,8 +72,13 @@
         <module>OSGiExtender</module>
     <module>OSGiCore</module>
     <module>OSGiCommon</module>
-        <module>SilentOSGiUpdater</module>
         <module>OSGiLibGDX</module>
+    <module>OSGiPlayer</module>
+    <module>OSGiEnemy</module>
+    <module>OSGiAstroid</module>
+    <module>OSGiAmmo</module>
+    <module>OSGiSplitObject</module>
+        <module>OSGiNBUpdater</module>
     </modules>
 
     <properties>

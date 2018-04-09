@@ -43,3 +43,11 @@ hs_err_pid*
 /AstroidNetbeansMod/AstroidNetbeansMod/AstroidNBModule/target/
 /AstroidNetbeansMod/AstroidNetbeansMod/AmmoNBModule/target/
 /OSGiNBAstroids/OSGiCommon/target/
+/OSGiNBAstroids/OSGiCore/target/
+/OSGiNBAstroids/OSGiPlayer/target/
+/OSGiNBAstroids/SilentOSGiUpdater/target/
+/OSGiNBAstroids/OSGiEnemy/target/
+/OSGiNBAstroids/OSGiSplitObject/target/
+/OSGiNBAstroids/OSGiAmmo/target/
+/OSGiNBAstroids/OSGiAstroid/target/
+/OSGiNBAstroids/OSGiExtender/target/

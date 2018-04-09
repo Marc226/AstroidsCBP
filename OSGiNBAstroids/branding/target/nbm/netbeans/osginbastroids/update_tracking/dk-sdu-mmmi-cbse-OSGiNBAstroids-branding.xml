@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?><module codename="dk.sdu.mmmi.cbse.OSGiNBAstroids.branding">
-    <module_version install_time="1523306179827" last="true" origin="installer" specification_version="1.0">
+    <module_version install_time="1523316903021" last="true" origin="installer" specification_version="1.0">
         <file crc="4239846535" name="config/Modules/dk-sdu-mmmi-cbse-OSGiNBAstroids-branding.xml"/>
-        <file crc="3242730979" name="core/locale/core_osginbastroids.jar"/>
-        <file crc="3925797652" name="modules/dk-sdu-mmmi-cbse-OSGiNBAstroids-branding.jar"/>
-        <file crc="4171118093" name="modules/locale/org-netbeans-core-windows_osginbastroids.jar"/>
-        <file crc="3217638377" name="modules/locale/org-netbeans-core_osginbastroids.jar"/>
+        <file crc="1395753624" name="core/locale/core_osginbastroids.jar"/>
+        <file crc="2672913082" name="modules/dk-sdu-mmmi-cbse-OSGiNBAstroids-branding.jar"/>
+        <file crc="2760162778" name="modules/locale/org-netbeans-core-windows_osginbastroids.jar"/>
+        <file crc="720266178" name="modules/locale/org-netbeans-core_osginbastroids.jar"/>
     </module_version>
 </module>
