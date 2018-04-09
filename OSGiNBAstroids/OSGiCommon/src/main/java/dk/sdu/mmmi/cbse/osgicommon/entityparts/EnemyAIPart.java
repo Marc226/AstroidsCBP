@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dk.sdu.mmmi.cbse.commonnbmodule.entityparts;
+package dk.sdu.mmmi.cbse.osgicommon.entityparts;
 
-import dk.sdu.mmmi.cbse.commonnbmodule.data.Entity;
-import dk.sdu.mmmi.cbse.commonnbmodule.data.GameData;
-import dk.sdu.mmmi.cbse.commonnbmodule.data.World;
+import dk.sdu.mmmi.cbse.osgicommon.data.Entity;
+import dk.sdu.mmmi.cbse.osgicommon.data.GameData;
+import dk.sdu.mmmi.cbse.osgicommon.data.World;
 import java.awt.Polygon;
 import java.awt.geom.Area;
 import java.util.ArrayList;
@@ -64,7 +64,7 @@ public class EnemyAIPart implements EntityPart{
     @Override
     public void process(GameData gameData, Entity entity) {
         generateAstroidList();
-        int detectionZone = 500;
+        int detectionZone = 200;
         
         Polygon poly1 = new Polygon();
         poly1.addPoint((int)(x + Math.cos(radians)), (int) (y + Math.sin(radians)));
