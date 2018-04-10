@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module codename="dk.sdu.mmmi.cbse.OSGiAstroid">
-    <module_version install_time="1523317357970" last="true" origin="installer" specification_version="1.0.0.SNAPSHOT">
+    <module_version install_time="1523348543778" last="true" origin="installer" specification_version="1.0.0.SNAPSHOT">
         <file crc="3915507339" name="config/Modules/dk-sdu-mmmi-cbse-OSGiAstroid.xml"/>
-        <file crc="1619927899" name="modules/dk-sdu-mmmi-cbse-OSGiAstroid.jar"/>
+        <file crc="2877084522" name="modules/dk-sdu-mmmi-cbse-OSGiAstroid.jar"/>
     </module_version>
 </module>

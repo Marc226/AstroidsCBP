@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module codename="dk.sdu.mmmi.cbse.OSGiAmmo">
-    <module_version install_time="1523317357974" last="true" origin="installer" specification_version="1.0.0.SNAPSHOT">
+    <module_version install_time="1523348543784" last="true" origin="installer" specification_version="1.0.0.SNAPSHOT">
         <file crc="546111527" name="config/Modules/dk-sdu-mmmi-cbse-OSGiAmmo.xml"/>
-        <file crc="2779477733" name="modules/dk-sdu-mmmi-cbse-OSGiAmmo.jar"/>
+        <file crc="708081450" name="modules/dk-sdu-mmmi-cbse-OSGiAmmo.jar"/>
     </module_version>
 </module>
