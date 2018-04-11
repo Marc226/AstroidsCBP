@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="dk.sdu.mmmi.cbse.osgiasteroids.AsteroidPlugin">
+    <implementation class="dk.sdu.mmmi.cbse.osgiastroid.AstroidPlugin"/>
+    <service>
+        <provide interface="dk.sdu.mmmi.cbse.osgicommon.services.IGamePluginService"/>
+    </service>
+    <reference name="IPlayerPositionService" interface="dk.sdu.mmmi.cbse.osgicommon.services.IPlayerPositionService" unbind="removePlayerPosition" policy="dynamic" cardinality="1..1" bind="setPlayerPosition"/>
+</scr:component>

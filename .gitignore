@@ -52,3 +52,17 @@ hs_err_pid*
 /OSGiNBAstroids/OSGiAstroid/target/
 /OSGiNBAstroids/OSGiExtender/target/
 /OSGiNBAstroids/OSGiNBUpdater/target/
+/AsteroidsOSGi/OSGiAmmo/target/
+/AsteroidsOSGi/OSGiAsteroids/target/
+/AsteroidsOSGi/OSGiAstroid/target/
+/AsteroidsOSGi/OSGiCommon/target/
+/AsteroidsOSGi/OSGiCore/target/
+/AsteroidsOSGi/OSGiEnemy/target/
+/AsteroidsOSGi/OSGiExtender/target/
+/AsteroidsOSGi/OSGiLibGDX/target/
+/AsteroidsOSGi/OSGiPlayer/target/
+/AsteroidsOSGi/OSGiSplitObject/target/
+/AsteroidsOSGi/OSGiUpdater/target/
+/AsteroidsOSGi/application/target/
+/AsteroidsOSGi/branding/target/
+/AsteroidsOSGi/OSGiBundleLoader/target/
