@@ -6,8 +6,6 @@
 package dk.sdu.mmmi.cbse.osgibundleloader;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**

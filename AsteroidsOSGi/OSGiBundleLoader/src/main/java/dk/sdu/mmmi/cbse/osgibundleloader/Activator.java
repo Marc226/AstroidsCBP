@@ -50,6 +50,7 @@ public class Activator implements BundleActivator {
 
                         for (Bundle bundle : loadedBundles.values()) {
                             if (bundle.getState() != 0x00000020) {
+                                System.out.println("Starting Bundle: " + bundle.getSymbolicName());
                                 startBundle(bundle);
                             }
                         }

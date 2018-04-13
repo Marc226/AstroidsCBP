@@ -88,24 +88,26 @@ public class Game implements ApplicationListener {
             entityProcessorService.process(gameData, world);
         }
         
-        IEntityProcessingService process;
-        if(processReference() != null){
-            for(ServiceReference<IEntityProcessingService> reference : processReference()){
-                process = (IEntityProcessingService) context.getService(reference);
-            }
-        }
+//        IEntityProcessingService process;
+//        if(processReference() != null){
+//            for(ServiceReference<IEntityProcessingService> reference : processReference()){
+//                process = (IEntityProcessingService) context.getService(reference);
+//                process.process(gameData, world);
+//            }
+//        }
 
         // Post Update
         for (IPostEntityProcessingService postEntityProcessorService : postEntityProcessorList) {
             postEntityProcessorService.process(gameData, world);
         }
         
-        IPostEntityProcessingService postProcess;
-        if(processReference() != null){
-            for(ServiceReference<IPostEntityProcessingService> reference : postProcessReference()){
-                postProcess = (IPostEntityProcessingService) context.getService(reference);
-            }
-        }
+//        IPostEntityProcessingService postProcess;
+//        if(processReference() != null){
+//            for(ServiceReference<IPostEntityProcessingService> reference : postProcessReference()){
+//                postProcess = (IPostEntityProcessingService) context.getService(reference);
+//                postProcess.process(gameData, world);
+//            }
+//        }
     }
 
     private void draw() {
@@ -162,35 +164,26 @@ public class Game implements ApplicationListener {
         postEntityProcessorList.remove(eps);
     }
 
-    public void addGamePluginService(IGamePluginService plugin) {
-        this.gamePluginList.add(plugin);
-        plugin.start(gameData, world);
 
-    }
-
-    public void removeGamePluginService(IGamePluginService plugin) {
-        this.gamePluginList.remove(plugin);
-        plugin.stop(gameData, world);
-    }
     
-    public Collection<ServiceReference<IEntityProcessingService>> processReference() {
-        Collection<ServiceReference<IEntityProcessingService>> collection = null;
-        try {
-            collection = this.context.getServiceReferences(IEntityProcessingService.class, null);
-        } catch (InvalidSyntaxException ex) {
-            System.out.println("Service not availlable!");
-        }
-        return collection;
-    }
-    
-    public Collection<ServiceReference<IPostEntityProcessingService>> postProcessReference() {
-        Collection<ServiceReference<IPostEntityProcessingService>> collection = null;
-        try {
-            collection = this.context.getServiceReferences(IPostEntityProcessingService.class, null);
-        } catch (InvalidSyntaxException ex) {
-            System.out.println("Service not availlable!");
-        }
-        return collection;
-    }
+//    public Collection<ServiceReference<IEntityProcessingService>> processReference() {
+//        Collection<ServiceReference<IEntityProcessingService>> collection = null;
+//        try {
+//            collection = this.context.getServiceReferences(IEntityProcessingService.class, null);
+//        } catch (InvalidSyntaxException ex) {
+//            System.out.println("Service not availlable!");
+//        }
+//        return collection;
+//    }
+//    
+//    public Collection<ServiceReference<IPostEntityProcessingService>> postProcessReference() {
+//        Collection<ServiceReference<IPostEntityProcessingService>> collection = null;
+//        try {
+//            collection = this.context.getServiceReferences(IPostEntityProcessingService.class, null);
+//        } catch (InvalidSyntaxException ex) {
+//            System.out.println("Service not availlable!");
+//        }
+//        return collection;
+//    }
 
 }

@@ -1,7 +1,6 @@
 package dk.sdu.mmmi.cbse.osgiastroid;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -19,9 +18,6 @@ import dk.sdu.mmmi.cbse.osgicommon.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.osgicommon.entityparts.SplitAblePart;
 import dk.sdu.mmmi.cbse.osgicommon.services.IGamePluginService;
 import dk.sdu.mmmi.cbse.osgicommon.services.IPlayerPositionService;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.FrameworkUtil;
-import org.osgi.framework.ServiceReference;
 
 public class AstroidPlugin implements IGamePluginService {
 

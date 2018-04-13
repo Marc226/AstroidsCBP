@@ -72,7 +72,7 @@ public class LifePart implements EntityPart {
         reduceExpiration(gameData.getDelta());
         if(invulnerable != true){
             if (expiration <= 0 && player == false){
-                System.out.println(entity.getID() + " expired");
+                
                 life = 0;
             }
 

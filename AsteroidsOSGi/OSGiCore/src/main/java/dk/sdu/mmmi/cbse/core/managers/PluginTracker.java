@@ -9,7 +9,6 @@ package dk.sdu.mmmi.cbse.core.managers;
 import dk.sdu.mmmi.cbse.osgicommon.data.GameData;
 import dk.sdu.mmmi.cbse.osgicommon.data.World;
 import dk.sdu.mmmi.cbse.osgicommon.services.IGamePluginService;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
@@ -50,6 +49,7 @@ public class PluginTracker {
         for(ServiceReference<IGamePluginService> reference : pluginReference()){
             plugin = (IGamePluginService) context.getService(reference);
             if(!pluginList.contains(plugin)){
+                System.out.println("Starting Plugin: " + plugin.getClass().toString());
                 plugin.start(gameData, world);//adds the new loaded bundle to gameData for imageloading
                 pluginList.add(plugin);
             }
@@ -68,6 +68,7 @@ public class PluginTracker {
                 }
             }
             if(active == false){
+                System.out.println("Stopping Plugin: " + plug.getClass().getName());
                 plug.stop(gameData, world);
                 System.out.println("Plugin removed");
                 pluginList.remove(plug);
@@ -81,7 +82,7 @@ public class PluginTracker {
         try {
             collection = this.context.getServiceReferences(IGamePluginService.class, null);
         } catch (InvalidSyntaxException ex) {
-            System.out.println("Service not availlable!");
+            System.out.println("Service not available!");
             active = false; //stop thread if service is unavailable
         }
         return collection;

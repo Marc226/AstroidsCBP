@@ -15,9 +15,9 @@ public class Activator implements BundleActivator {
     public void start(BundleContext context) throws Exception {
         
         //for testing
-        //context.registerService(IGamePluginService.class.getName(), plugin, null);
-        //context.registerService(IEntityProcessingService.class.getName(), process, null);
-        //context.registerService(IPostEntityProcessingService.class.getName(), post, null);
+        context.registerService(IGamePluginService.class.getName(), plugin, null);
+        context.registerService(IEntityProcessingService.class.getName(), process, null);
+        context.registerService(IPostEntityProcessingService.class.getName(), post, null);
     }
 
     public void stop(BundleContext context) throws Exception {
