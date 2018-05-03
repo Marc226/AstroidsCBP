@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+OpenIDE-Module-Localizing-Bundle: dk/sdu/mmmi/cbse/commonnbmodule/Bund
+ le.properties
+OpenIDE-Module-Specification-Version: 1.0
+OpenIDE-Module-Implementation-Version: 1.0-20180409
+OpenIDE-Module-Build-Version: 201804091520
+OpenIDE-Module: dk.sdu.mmmi.cbse.CommonNBModule
+OpenIDE-Module-Public-Packages: dk.sdu.mmmi.cbse.commonnbmodule.data.*
+ , dk.sdu.mmmi.cbse.commonnbmodule.entityparts.*, dk.sdu.mmmi.cbse.com
+ monnbmodule.events.*, dk.sdu.mmmi.cbse.commonnbmodule.services.*
+OpenIDE-Module-Requires: org.openide.modules.ModuleFormat1
+OpenIDE-Module-Display-Category: dk.sdu.mmmi.cbse
+OpenIDE-Module-Name: CommonNBModule
+OpenIDE-Module-Short-Description: <undefined>
+OpenIDE-Module-Long-Description: <undefined>
+OpenIDE-Module-Module-Dependencies: org.netbeans.api.annotations.commo
+ n/1 > 1.27.1
+
