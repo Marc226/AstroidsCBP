@@ -1,0 +1,60 @@
+Manifest-Version: 1.0
+OpenIDE-Module-Install: dk/sdu/mmmi/cbse/corenbmodule/main/Installer.c
+ lass
+OpenIDE-Module-Localizing-Bundle: dk/sdu/mmmi/cbse/corenbmodule/Bundle
+ .properties
+OpenIDE-Module-Specification-Version: 1.0
+OpenIDE-Module-Implementation-Version: 1.0-20180504
+OpenIDE-Module-Build-Version: 201805041327
+OpenIDE-Module: dk.sdu.mmmi.cbse.CoreNBModule
+OpenIDE-Module-Public-Packages: -
+OpenIDE-Module-Requires: org.openide.modules.ModuleFormat1
+OpenIDE-Module-Display-Category: dk.sdu.mmmi.cbse
+OpenIDE-Module-Name: CoreNBModule
+OpenIDE-Module-Short-Description: <undefined>
+OpenIDE-Module-Long-Description: <undefined>
+X-Class-Path: ext/dk.sdu.mmmi.cbse.CoreNBModule/com-badlogicgames-gdx/
+ gdx.jar ext/dk.sdu.mmmi.cbse.CoreNBModule/com-badlogicgames-gdx/gdx-p
+ latform-natives-desktop.jar ext/dk.sdu.mmmi.cbse.CoreNBModule/com-bad
+ logicgames-gdx/gdx-backend-lwjgl.jar ext/dk.sdu.mmmi.cbse.CoreNBModul
+ e/org-lwjgl-lwjgl/lwjgl.jar ext/dk.sdu.mmmi.cbse.CoreNBModule/org-lwj
+ gl-lwjgl/lwjgl-platform-natives-windows.jar ext/dk.sdu.mmmi.cbse.Core
+ NBModule/org-lwjgl-lwjgl/lwjgl-platform-natives-linux.jar ext/dk.sdu.
+ mmmi.cbse.CoreNBModule/org-lwjgl-lwjgl/lwjgl-platform-natives-osx.jar
+  ext/dk.sdu.mmmi.cbse.CoreNBModule/net-java-jinput/jinput.jar ext/dk.
+ sdu.mmmi.cbse.CoreNBModule/net-java-jutils/jutils.jar ext/dk.sdu.mmmi
+ .cbse.CoreNBModule/org-lwjgl-lwjgl/lwjgl_util.jar ext/dk.sdu.mmmi.cbs
+ e.CoreNBModule/com-badlogicgames-jlayer/jlayer.jar ext/dk.sdu.mmmi.cb
+ se.CoreNBModule/org-jcraft/jorbis.jar ext/dk.sdu.mmmi.cbse.CoreNBModu
+ le/com-badlogicgames-gdx/gdx-box2d.jar ext/dk.sdu.mmmi.cbse.CoreNBMod
+ ule/com-badlogicgames-gdx/gdx-box2d-platform-natives-desktop.jar ext/
+ dk.sdu.mmmi.cbse.CoreNBModule/com-badlogicgames-gdx/gdx-freetype.jar 
+ ext/dk.sdu.mmmi.cbse.CoreNBModule/com-badlogicgames-gdx/gdx-freetype-
+ platform-natives-desktop.jar ext/dk.sdu.mmmi.cbse.CoreNBModule/org-sp
+ ringframework/spring-context.jar ext/dk.sdu.mmmi.cbse.CoreNBModule/or
+ g-springframework/spring-aop.jar ext/dk.sdu.mmmi.cbse.CoreNBModule/ao
+ palliance/aopalliance.jar ext/dk.sdu.mmmi.cbse.CoreNBModule/org-sprin
+ gframework/spring-beans.jar ext/dk.sdu.mmmi.cbse.CoreNBModule/org-spr
+ ingframework/spring-core.jar ext/dk.sdu.mmmi.cbse.CoreNBModule/common
+ s-logging/commons-logging.jar ext/dk.sdu.mmmi.cbse.CoreNBModule/org-s
+ pringframework/spring-expression.jar
+Maven-Class-Path: com.badlogicgames.gdx:gdx:1.5.0 com.badlogicgames.gd
+ x:gdx-platform:1.5.0:natives-desktop com.badlogicgames.gdx:gdx-backen
+ d-lwjgl:1.5.0 org.lwjgl.lwjgl:lwjgl:2.9.1 org.lwjgl.lwjgl:lwjgl-platf
+ orm:2.9.1:natives-windows org.lwjgl.lwjgl:lwjgl-platform:2.9.1:native
+ s-linux org.lwjgl.lwjgl:lwjgl-platform:2.9.1:natives-osx net.java.jin
+ put:jinput:2.0.5 net.java.jutils:jutils:1.0.0 org.lwjgl.lwjgl:lwjgl_u
+ til:2.9.1 com.badlogicgames.jlayer:jlayer:1.0.1-gdx org.jcraft:jorbis
+ :0.0.17 com.badlogicgames.gdx:gdx-box2d:1.5.0 com.badlogicgames.gdx:g
+ dx-box2d-platform:1.5.0:natives-desktop com.badlogicgames.gdx:gdx-fre
+ etype:1.5.0 com.badlogicgames.gdx:gdx-freetype-platform:1.5.0:natives
+ -desktop org.springframework:spring-context:4.1.5.RELEASE org.springf
+ ramework:spring-aop:4.1.5.RELEASE aopalliance:aopalliance:1.0 org.spr
+ ingframework:spring-beans:4.1.5.RELEASE org.springframework:spring-co
+ re:4.1.5.RELEASE commons-logging:commons-logging:1.2 org.springframew
+ ork:spring-expression:4.1.5.RELEASE
+OpenIDE-Module-Module-Dependencies: org.netbeans.api.annotations.commo
+ n/1 > 1.27.1, org.openide.modules > 7.48.1, org.openide.util > 9.7.1,
+  org.openide.util.lookup > 8.33.1, dk.sdu.mmmi.cbse.CommonNBModule > 
+ 1.0, org.openide.util.ui > 9.6.1
+

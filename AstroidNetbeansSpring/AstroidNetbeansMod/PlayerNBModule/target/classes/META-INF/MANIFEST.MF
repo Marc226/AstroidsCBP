@@ -2,8 +2,8 @@ Manifest-Version: 1.0
 OpenIDE-Module-Localizing-Bundle: dk/sdu/mmmi/cbse/playernbmodule/Bund
  le.properties
 OpenIDE-Module-Specification-Version: 1.0
-OpenIDE-Module-Implementation-Version: 1.0-20180409
-OpenIDE-Module-Build-Version: 201804091520
+OpenIDE-Module-Implementation-Version: 1.0-20180504
+OpenIDE-Module-Build-Version: 201805041327
 OpenIDE-Module: dk.sdu.mmmi.cbse.PlayerNBModule
 OpenIDE-Module-Public-Packages: -
 OpenIDE-Module-Requires: org.openide.modules.ModuleFormat1

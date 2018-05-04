@@ -1,0 +1,11 @@
+platform=1525440460215
+cluster.asteroidsnetbeansmodules=1525440460214
+cluster.bin=1525440460214
+cluster.etc=1525440460215
+cluster.platform=1525440460215
+user=1525440460215
+crc=7
+locale=en_GB
+branding=astroidnetbeansmod
+java.version=1.8.0_151
+java.vm.version=25.151-b12

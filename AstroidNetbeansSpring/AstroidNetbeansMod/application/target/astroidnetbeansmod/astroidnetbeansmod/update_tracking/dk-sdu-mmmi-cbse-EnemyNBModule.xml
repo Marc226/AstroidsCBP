@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><module codename="dk.sdu.mmmi.cbse.EnemyNBModule">
-    <module_version install_time="1523288313176" last="true" origin="installer" specification_version="1.0">
-        <file crc="4106827172" name="config/Modules/dk-sdu-mmmi-cbse-EnemyNBModule.xml"/>
-        <file crc="1822732732" name="modules/dk-sdu-mmmi-cbse-EnemyNBModule.jar"/>
-    </module_version>
-</module>

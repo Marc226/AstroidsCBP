@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><module codename="dk.sdu.mmmi.cbse.CoreNBModule">
+    <module_version install_time="1525440449872" last="true" origin="installer" specification_version="1.0">
+        <file crc="1340784801" name="config/Modules/dk-sdu-mmmi-cbse-CoreNBModule.xml"/>
+        <file crc="3725246711" name="modules/dk-sdu-mmmi-cbse-CoreNBModule.jar"/>
+        <file crc="964851370" name="modules/ext/dk.sdu.mmmi.cbse.CoreNBModule/aopalliance/aopalliance.jar"/>
+        <file crc="2488665527" name="modules/ext/dk.sdu.mmmi.cbse.CoreNBModule/com-badlogicgames-gdx/gdx-backend-lwjgl.jar"/>
+        <file crc="2933476186" name="modules/ext/dk.sdu.mmmi.cbse.CoreNBModule/com-badlogicgames-gdx/gdx-box2d-platform-natives-desktop.jar"/>
+        <file crc="3989081260" name="modules/ext/dk.sdu.mmmi.cbse.CoreNBModule/com-badlogicgames-gdx/gdx-box2d.jar"/>
+        <file crc="1825961012" name="modules/ext/dk.sdu.mmmi.cbse.CoreNBModule/com-badlogicgames-gdx/gdx-freetype-platform-natives-desktop.jar"/>
+        <file crc="2089937641" name="modules/ext/dk.sdu.mmmi.cbse.CoreNBModule/com-badlogicgames-gdx/gdx-freetype.jar"/>
+        <file crc="456878805" name="modules/ext/dk.sdu.mmmi.cbse.CoreNBModule/com-badlogicgames-gdx/gdx-platform-natives-desktop.jar"/>
+        <file crc="1015876392" name="modules/ext/dk.sdu.mmmi.cbse.CoreNBModule/com-badlogicgames-gdx/gdx.jar"/>
+        <file crc="1146210713" name="modules/ext/dk.sdu.mmmi.cbse.CoreNBModule/com-badlogicgames-jlayer/jlayer.jar"/>
+        <file crc="908197187" name="modules/ext/dk.sdu.mmmi.cbse.CoreNBModule/commons-logging/commons-logging.jar"/>
+        <file crc="426864957" name="modules/ext/dk.sdu.mmmi.cbse.CoreNBModule/net-java-jinput/jinput.jar"/>
+        <file crc="1529865491" name="modules/ext/dk.sdu.mmmi.cbse.CoreNBModule/net-java-jutils/jutils.jar"/>
+        <file crc="2846045197" name="modules/ext/dk.sdu.mmmi.cbse.CoreNBModule/org-jcraft/jorbis.jar"/>
+        <file crc="3894734527" name="modules/ext/dk.sdu.mmmi.cbse.CoreNBModule/org-lwjgl-lwjgl/lwjgl-platform-natives-linux.jar"/>
+        <file crc="2888251747" name="modules/ext/dk.sdu.mmmi.cbse.CoreNBModule/org-lwjgl-lwjgl/lwjgl-platform-natives-osx.jar"/>
+        <file crc="1629828147" name="modules/ext/dk.sdu.mmmi.cbse.CoreNBModule/org-lwjgl-lwjgl/lwjgl-platform-natives-windows.jar"/>
+        <file crc="1810775593" name="modules/ext/dk.sdu.mmmi.cbse.CoreNBModule/org-lwjgl-lwjgl/lwjgl.jar"/>
+        <file crc="1003691195" name="modules/ext/dk.sdu.mmmi.cbse.CoreNBModule/org-lwjgl-lwjgl/lwjgl_util.jar"/>
+        <file crc="2708636039" name="modules/ext/dk.sdu.mmmi.cbse.CoreNBModule/org-springframework/spring-aop.jar"/>
+        <file crc="1760963619" name="modules/ext/dk.sdu.mmmi.cbse.CoreNBModule/org-springframework/spring-beans.jar"/>
+        <file crc="160052140" name="modules/ext/dk.sdu.mmmi.cbse.CoreNBModule/org-springframework/spring-context.jar"/>
+        <file crc="1880493333" name="modules/ext/dk.sdu.mmmi.cbse.CoreNBModule/org-springframework/spring-core.jar"/>
+        <file crc="967140435" name="modules/ext/dk.sdu.mmmi.cbse.CoreNBModule/org-springframework/spring-expression.jar"/>
+    </module_version>
+</module>

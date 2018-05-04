@@ -15,11 +15,13 @@ import dk.sdu.mmmi.cbse.commonnbmodule.services.IPostEntityProcessingService;
 import dk.sdu.mmmi.cbse.corenbmodule.managers.GameInputProcessor;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 import org.openide.util.Lookup;
 import org.openide.util.LookupEvent;
 import org.openide.util.LookupListener;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Game implements ApplicationListener {
 
@@ -35,7 +37,9 @@ public class Game implements ApplicationListener {
 
     @Override
     public void create() {
-
+        
+        context = new ClassPathXmlApplicationContext("Beans.xml");
+        
         gameData.setDisplayWidth(Gdx.graphics.getWidth());
         gameData.setDisplayHeight(Gdx.graphics.getHeight());
 
@@ -53,7 +57,13 @@ public class Game implements ApplicationListener {
                 new GameInputProcessor(gameData)
         );
 
+        
         for (IGamePluginService plugin : result.allInstances()) {
+            plugin.start(gameData, world);
+            gamePlugins.add(plugin);
+        }
+        
+        for (IGamePluginService plugin : getPluginBeans().values()) {
             plugin.start(gameData, world);
             gamePlugins.add(plugin);
         }
@@ -85,8 +95,16 @@ public class Game implements ApplicationListener {
             for (IEntityProcessingService entityProcessorService : getEntityProcessingServices()) {
                entityProcessorService.process(gameData, world);
             }
+            
+            for (IEntityProcessingService entityProcessorService : getProcessBeans().values()) {
+               entityProcessorService.process(gameData, world);
+            }
 
             for(IPostEntityProcessingService entityPostProcessingService: getPostEntityProcessingServices()){
+                entityPostProcessingService.process(gameData, world);
+            }
+            
+            for(IPostEntityProcessingService entityPostProcessingService: getPostProcessBeans().values()){
                 entityPostProcessingService.process(gameData, world);
             }
         }
@@ -162,4 +180,16 @@ public class Game implements ApplicationListener {
         }
 
     };
+    
+    private final Map<String, IGamePluginService> getPluginBeans(){
+        return context.getBeansOfType(IGamePluginService.class);
+    }
+    
+    private final Map<String, IEntityProcessingService> getProcessBeans(){
+        return context.getBeansOfType(IEntityProcessingService.class);
+    }
+    
+    private final Map<String, IPostEntityProcessingService> getPostProcessBeans(){
+        return context.getBeansOfType(IPostEntityProcessingService.class);
+    }
 }

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><module codename="dk.sdu.mmmi.cbse.SplitObjectNBModule">
-    <module_version install_time="1523288313210" last="true" origin="installer" specification_version="1.0">
-        <file crc="956584987" name="config/Modules/dk-sdu-mmmi-cbse-SplitObjectNBModule.xml"/>
-        <file crc="1001743667" name="modules/dk-sdu-mmmi-cbse-SplitObjectNBModule.jar"/>
-    </module_version>
-</module>
